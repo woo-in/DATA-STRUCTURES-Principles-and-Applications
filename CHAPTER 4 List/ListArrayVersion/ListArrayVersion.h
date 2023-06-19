@@ -1,11 +1,14 @@
 #ifndef LIST_ARRAY_VERSION_H
 #define LIST_ARRAY_VERSION_H
 
-#define MAX_LIST_LENGTH 10
-
 #include <stdbool.h>
 
-typedef int ItemType ;// user can modify type of data 
+/////////////////////////////////////////////////////////////////////////
+#define MAX_LIST_LENGTH 10 // user can modify max length of list       //
+typedef int ItemType ;// user can modify type of data                  // 
+///////////////////////////////////////////////////////////////////////// 
+
+
 typedef struct ListType* List; // incompelete type of information hiding 
 
 List InitList();

@@ -34,5 +34,5 @@ int main() {
 	RemoveList(&a);
 
 	
-
+	return 0; 
 }
