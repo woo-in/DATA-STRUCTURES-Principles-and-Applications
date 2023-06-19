@@ -1,11 +1,10 @@
-#ifndef LIST_ARRAY_VERSION_H
-#define LIST_ARRAY_VERSION_H
+#ifndef LIST_LINKED_LIST_VERSION_H
+#define LIST_LINKED_LIST_VERSION_H
 
 #include <stdbool.h>
 
-/////////////////////////////////////////////////////////////////////////
-#define MAX_LIST_LENGTH 10 // user can modify max length of list       //
-typedef int ItemType ;// user can modify type of item                 // 
+/////////////////////////////////////////////////////////////////////////       
+typedef int ItemType;// user can modify type of data                  // 
 ///////////////////////////////////////////////////////////////////////// 
 
 
@@ -24,6 +23,6 @@ ItemType RemoveFirstElementList(List q_list);
 ItemType RemoveLastElementList(List q_list);
 void RemoveList(List* remove_list_address);
 static void ErrorHandingFunction(enum ERROR_CODE code);
-
+static struct Node* Get_Node();
 
 #endif 

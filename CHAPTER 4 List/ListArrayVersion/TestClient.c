@@ -18,19 +18,7 @@ int main() {
 
 
 
-	//RemoveFirstElementList(a);
-
-	TemptPrint(a);
-
-
-
-
-
-
-
-
-	
-
+	//RemoveFirstElementList(a);	
 	RemoveList(&a);
 
 	

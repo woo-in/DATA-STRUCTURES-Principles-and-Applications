@@ -227,5 +227,3 @@ static void ErrorHandingFunction(enum ERROR_CODE code) {
 
 	exit(0); 
 }
-
-
