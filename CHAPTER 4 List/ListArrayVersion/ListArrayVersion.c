@@ -37,7 +37,7 @@ bool IsEmptyList(const List q_list) {
 		ErrorHandingFunction(DeallocatedList);
 	}
 
-	return q_list;
+	return !(q_list->list_size);
 }
 
 // O(1) 
@@ -135,6 +135,69 @@ void AddLastElementList(List q_list,const ItemType add_item) {
 	return; 
 }
 
+// O(N) , N : element count 
+ItemType RemoveRankElementList(List q_list, const int rank) {
+	if (q_list == NULL) {
+		ErrorHandingFunction(DeallocatedList);
+	}
+
+	if (rank <= 0 || rank > q_list->list_size) {
+		ErrorHandingFunction(InvalidRank);
+	}
+
+	if (q_list->list_size <= 0) {
+		ErrorHandingFunction(EmptyList);
+	}
+
+	// change location and delete item 
+	int end_index = q_list->list_size - 1;
+	int delete_index_next = rank ;
+	for (int i = delete_index_next ; i <= end_index; i++) {
+		q_list->item[i - 1] = q_list->item[i];
+	}
+	
+	q_list->list_size--;
+
+	return; 
+}
+
+// O(N) , N : element count 
+ItemType RemoveFirstElementList(List q_list) {
+	if (q_list == NULL) {
+		ErrorHandingFunction(DeallocatedList);
+	}
+
+	if (q_list->list_size <= 0) {
+		ErrorHandingFunction(EmptyList);
+	}
+
+	// change location and delete item 
+	int end_index = q_list->list_size - 1;
+	int delete_index_next = 1;
+	for (int i = delete_index_next; i <= end_index; i++) {
+		q_list->item[i - 1] = q_list->item[i];
+	}
+
+	q_list->list_size--;
+
+	return; 
+}
+
+// 0(1) 
+ItemType RemoveLastElementList(List q_list) {
+	if (q_list == NULL) {
+		ErrorHandingFunction(DeallocatedList);
+	}
+
+	if (q_list->list_size <= 0) {
+		ErrorHandingFunction(EmptyList);
+	}
+
+	q_list->list_size--;
+
+	return; 
+}
+
 // O(1) 
 void RemoveList(List* remove_list_address) {
 	if (*remove_list_address == NULL) {
@@ -162,13 +225,7 @@ static void ErrorHandingFunction(enum ERROR_CODE code) {
 	default: printf("ERROR : ERROR CODE EXCEPTION\n\n"); break; 
 	}
 
-	exit(1); 
+	exit(0); 
 }
 
 
-void TemptPrint(List q_list)
-{
-	for (int i = 0; i < q_list->list_size; i++)
-		printf("%d ", q_list->item[i]);
-	return; 
-}

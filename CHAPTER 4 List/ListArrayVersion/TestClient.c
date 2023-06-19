@@ -5,25 +5,34 @@
 int main() {
 	List a = InitList();
 
-	AddFirstElementList(a, 10);
-	AddFirstElementList(a, 9);
-	AddFirstElementList(a, 8);
-	AddFirstElementList(a, 7);
-	AddFirstElementList(a, 6);
+	AddLastElementList(a, 1);
+	AddLastElementList(a, 2);
+	AddLastElementList(a, 3);
+	AddLastElementList(a, 4);
+	AddLastElementList(a, 5);
+	AddLastElementList(a, 6);
 
-	AddFirstElementList(a, 5);
-	AddFirstElementList(a, 4);
-	AddFirstElementList(a, 3);
-	AddFirstElementList(a, 2);
-	AddFirstElementList(a, 1);
-
+	RemoveFirstElementList(a);
+	RemoveFirstElementList(a);
+	RemoveRankElementList(a, 4);
 
 
-	TemptPrint(a); 
+
+	//RemoveFirstElementList(a);
+
+	TemptPrint(a);
+
+
+
+
+
+
+
+
+	
 
 	RemoveList(&a);
 
 	
-
 
 }
