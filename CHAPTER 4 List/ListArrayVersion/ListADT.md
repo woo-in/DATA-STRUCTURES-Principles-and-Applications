@@ -7,6 +7,8 @@ Successive individuals
 
 # Methods :   
 
+rank : 1 , 2 , 3 , 4 , 5 ...
+
 **List InitList()**   
 Return new list. 
 
@@ -35,7 +37,7 @@ Rest of the part follows next.
 Add add_item to the end of present part.  
 
 **ItemType RemoveRankElementList(List q_list, const int rank)**   
-Remove specific rank of q_list and return it. 
+Remove specific rank of q_list and return it.   
 Rest of the part will be pulled.
 
 **ItemType RemoveFirstElementList(List q_list)**   
@@ -68,7 +70,9 @@ GetSizeList , IsEmptyList , GetRankElementList , AddLastElementList , AddFirstEl
 # besides : 
 
 **ListArrayVersion.h**   
-User can modify max length of list and type of data.
+User can modify max length of list and type of item.
 
-![화면 캡처 2023-06-19 154434](https://github.com/woo-in/DATA-STRUCTURES-Principles-and-Applications/assets/69314509/d8f8e41c-d41f-4868-97b5-a232f5ecaa9a)
+
+![githubn](https://github.com/woo-in/DATA-STRUCTURES-Principles-and-Applications/assets/69314509/a6f66287-8941-4d63-a255-7f0a2fd3f719)
+
 
