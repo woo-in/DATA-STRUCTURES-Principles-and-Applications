@@ -1,10 +1,10 @@
 **Collection of data structures & algorithms in DATA STRUCTURES Principles and Applications , 국형준** 
 
-Written in Microsoft Visual Studio C ( C89 + Microsoft expansion ).
+- Written in Microsoft Visual Studio C ( C89 + Microsoft expansion ).
 
-Use by referring to ADT document which includes specification of data structure and algorithm.
+- Use by referring to ADT document which includes specification of data structure and algorithm.
 
-Determine the identifier by adhering to following.
+- Determine the identifier by adhering to following.
 
 (0) Any names MUST be a readable sentence explaining what you have.
 
