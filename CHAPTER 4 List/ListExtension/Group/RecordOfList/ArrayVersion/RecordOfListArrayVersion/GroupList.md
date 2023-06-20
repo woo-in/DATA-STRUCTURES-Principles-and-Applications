@@ -36,4 +36,11 @@ AddLastElementGroupList , PrintDesignatedElementGroupList , RemoveDesignatedElem
 # besides : 
 
 **ListArrayVersion.h**   
-User can modify max length of list and type of item.
+User can modify max length of list and type of item and group.
+
+![화면 캡처 2023-06-20 235253](https://github.com/woo-in/DATA-STRUCTURES-Principles-and-Applications/assets/69314509/1e5e4a29-85a4-4600-8781-7fa20786ca0b)
+
+If user changed type of item or group , should modify printf function conversion specification in PrintDesignatedElementGroupList. 
+
+![화면 캡처 2023-06-20 235556](https://github.com/woo-in/DATA-STRUCTURES-Principles-and-Applications/assets/69314509/064532d0-ffbb-495f-bafd-4e42581744a6)
+
