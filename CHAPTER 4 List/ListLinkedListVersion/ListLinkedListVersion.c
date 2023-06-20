@@ -309,9 +309,11 @@ void RemoveList(List* remove_list_address) {
 		free(tmp_deallocating);
 	}
 
+	List* deallocating_list_address = remove_list_address;
+
 	(*remove_list_address) = NULL;
 
-	free(*remove_list_address);
+	free(*deallocating_list_address);
 
 	return;
 }

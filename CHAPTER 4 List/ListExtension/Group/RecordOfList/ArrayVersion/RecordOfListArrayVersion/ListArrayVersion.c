@@ -204,9 +204,7 @@ void RemoveList(List* remove_list_address) {
 		ErrorHandingFunction(DeallocatedList);
 	}
 
-	List* deallocating_address = remove_list_address;
-
-	(*remove_list_address) = NULL;
+	(* remove_list_address) = NULL;
 
 	free(*remove_list_address);
 

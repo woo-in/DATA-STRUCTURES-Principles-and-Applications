@@ -12,9 +12,7 @@ int main() {
 	AddLastElementList(a, 5);
 	AddLastElementList(a, 6);
 
-	RemoveFirstElementList(a);
-	RemoveFirstElementList(a);
-	RemoveRankElementList(a, 4);
+	printf("%d", RemoveLastElementList(a));
 
 
 
