@@ -54,7 +54,7 @@ bool IsEmptyList(const List q_list) {
 	return !(q_list->list_size);
 }
 
-// O(N) 
+// O(N) , N : list_size  
 ItemType GetRankElementList(const List q_list, const int rank) {
 	if (q_list == NULL) {
 		ErrorHandingFunction(DeallocatedList);
@@ -90,7 +90,7 @@ ItemType GetRankElementList(const List q_list, const int rank) {
 	// (1+list_size) / 2  + 1 ~ list_size 
 }
 
-// O(1) 
+// O(N) , N : list_size  
 void ChangeRankElementList(List q_list, const int rank, const ItemType replace_item) {
 	if (q_list == NULL) {
 		ErrorHandingFunction(DeallocatedList);
@@ -124,7 +124,7 @@ void ChangeRankElementList(List q_list, const int rank, const ItemType replace_i
 	return;
 }
 
-// O(N) , N : element count  
+// O(N) , N : list_size  
 void AddRankElementList(List q_list, const int rank, const ItemType add_item) {
 	if (q_list == NULL) {
 		ErrorHandingFunction(DeallocatedList);
@@ -165,6 +165,7 @@ void AddRankElementList(List q_list, const int rank, const ItemType add_item) {
 	q_list->list_size++;
 }
 
+// O(1) 
 void AddFirstElementList(List q_list, const ItemType add_item) {
 	if (q_list == NULL) {
 		ErrorHandingFunction(DeallocatedList);
@@ -183,6 +184,8 @@ void AddFirstElementList(List q_list, const ItemType add_item) {
 
 	q_list->list_size++;
 }
+
+// O(1) 
 void AddLastElementList(List q_list, const ItemType add_item) {
 	if (q_list == NULL) {
 		ErrorHandingFunction(DeallocatedList);
@@ -202,7 +205,7 @@ void AddLastElementList(List q_list, const ItemType add_item) {
 	q_list->list_size++;
 }
 
-
+// O(N) , N : list size 
 ItemType RemoveRankElementList(List q_list, const int rank) {
 	if (q_list == NULL) {
 		ErrorHandingFunction(DeallocatedList);
@@ -245,7 +248,7 @@ ItemType RemoveRankElementList(List q_list, const int rank) {
 	return get_item;  
 }
 
-
+// O(1)
 ItemType RemoveFirstElementList(List q_list) {
 	if (q_list == NULL) {
 		ErrorHandingFunction(DeallocatedList);
@@ -269,7 +272,7 @@ ItemType RemoveFirstElementList(List q_list) {
 
 }
 
-
+// O(1)
 ItemType RemoveLastElementList(List q_list) {
 	if (q_list == NULL) {
 		ErrorHandingFunction(DeallocatedList);
@@ -290,13 +293,20 @@ ItemType RemoveLastElementList(List q_list) {
 
 	return get_item;
 }
-
-
-// 동적할당 받은 건데 굳이 주소로 안해도 되지 않나 ? 
-// O(1) 
+ 
+// O(N) , N : list_size 
 void RemoveList(List* remove_list_address) {
 	if (*remove_list_address == NULL) {
 		ErrorHandingFunction(DeallocatedList);
+	}
+
+	// rotate for free 
+	struct Node* tmp_deallocating = NULL; 
+	struct Node* tmp = (*remove_list_address)->header->next; // 1st item node or trailer(size : 0) 
+	while (tmp->next != NULL) {
+		tmp_deallocating = tmp; 
+		tmp = tmp->next;
+		free(tmp_deallocating);
 	}
 
 	(*remove_list_address) = NULL;
@@ -305,8 +315,6 @@ void RemoveList(List* remove_list_address) {
 
 	return;
 }
-
-
 
 // O(1) 
 static void ErrorHandingFunction(enum ERROR_CODE code) {
@@ -324,6 +332,7 @@ static void ErrorHandingFunction(enum ERROR_CODE code) {
 	exit(0);
 }
 
+// O(1)
 static struct Node* Get_Node(){
 	struct Node* new_node = malloc(sizeof(struct Node));
 	if (new_node == NULL) {
@@ -334,10 +343,4 @@ static struct Node* Get_Node(){
 	new_node->prev = NULL;  
 
 	return new_node;  
-}
-
-static void Remove_Node(struct Node* delete_node) {
-
-	free(delete_node);
-	return; 
 }
