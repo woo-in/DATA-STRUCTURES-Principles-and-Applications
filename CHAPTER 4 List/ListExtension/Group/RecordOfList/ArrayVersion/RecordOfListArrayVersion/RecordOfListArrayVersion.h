@@ -11,6 +11,12 @@ typedef char GroupType; // user can modify type of group                   //
 
 typedef struct GroupListType* GroupList; // incompelete type of information hiding 
 
+GroupList InitGroupList();
+void AddLastElementGroupList(GroupList q_list, const ItemType add_item, const GroupType add_group);
+void PrintDesignatedElementGroupList(const GroupList q_list, const GroupType designated_group);
+void RemoveDesignatedElementGroupList(GroupList q_list, const GroupType designated_group);
+void RemoveGroupList(GroupList* remove_group_list_address);
 
+static void ErrorHandingFunction(enum ERROR_CODE code);
 
 #endif 

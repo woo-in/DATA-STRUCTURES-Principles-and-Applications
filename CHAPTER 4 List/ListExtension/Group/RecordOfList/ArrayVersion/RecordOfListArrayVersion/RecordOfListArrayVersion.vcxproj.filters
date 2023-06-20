@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ListArrayVersion.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="TestClient.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -26,9 +23,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ListArrayVersion.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="RecordOfListArrayVersion.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
