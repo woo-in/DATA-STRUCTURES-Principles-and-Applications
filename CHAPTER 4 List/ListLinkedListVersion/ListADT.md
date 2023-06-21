@@ -33,7 +33,7 @@ Add add_item to first rank of q_list.
 Rest of the part follows next.  
 
 **void AddLastElementList(List q_list, ItemType add_item)**   
-Add add_item to the end of present part.  
+Add add_item to the end of present part of q_list.
 
 **ItemType RemoveRankElementList(List q_list, const int rank)**   
 Remove specific rank of q_list and return it.   
@@ -47,7 +47,7 @@ Rest of the part will be pulled.
 Remove last rank of q_list and return it.   
 
 **void RemoveList(List * remove_list_address)**  
-Remove list.   
+Remove List.
 
 # Exceptions :
 
