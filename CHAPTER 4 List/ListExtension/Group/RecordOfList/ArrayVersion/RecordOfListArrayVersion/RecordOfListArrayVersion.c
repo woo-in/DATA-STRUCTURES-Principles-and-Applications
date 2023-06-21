@@ -47,11 +47,14 @@ void PrintDesignatedElementGroupList(const GroupList q_list, const GroupType des
 		ErrorHandingFunction(DeallocatedList);
 	}
 
+	printf("GROUP %c :", designated_group);
+	// printf conversion specification can modify , if type of group modified  < check !!!! >
+
 	// traverse and print designated_group 
 	for (int i = 0; i < q_list->group_list_size; i++) {
 		if (q_list->group[i] == designated_group) {
 			printf(" %d", q_list->item[i]); 
-			// printf conversion specification can modify , when type of item modifies  < check !!!! >    
+			// printf conversion specification can modify , if type of item modified  < check !!!! >    
 		}
 	}
 

@@ -11,7 +11,7 @@ int main() {
 	AddLastElementGroupList(a, 4, 'A');
 	AddLastElementGroupList(a, 5, 'A');
 
-	RemoveDesignatedElementGroupList(a, 'A');
+	PrintDesignatedElementGroupList(a, 'A');
 
 
 	//PrintDesignatedElementGroupList(a, 'A'); // null - > 2 
