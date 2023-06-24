@@ -34,8 +34,6 @@ void AddLastElementGroupList(GroupList q_list, const ItemType add_item, const in
 		ErrorHandingFunction(InvalidGroup);
 
 	int group_idx = designated_group - 1;
-	//printf("call of AddLastElementList size : %d\n", GetSizeList(q_list->group[group_idx]));
-	printf("%d\n", group_idx);
 	AddLastElementList(q_list->group[group_idx], add_item);
 
 	return;
