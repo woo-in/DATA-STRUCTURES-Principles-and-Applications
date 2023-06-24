@@ -20,7 +20,7 @@ enum ERROR_CODE { Memorylack, DeallocatedList };
 
 // O(1) 
 GroupList InitGroupList() {
-	GroupList init_list = malloc(sizeof(GroupList*));
+	GroupList init_list = malloc(sizeof(*init_list));
 	if (init_list == NULL) {
 		ErrorHandingFunction(Memorylack);
 	}

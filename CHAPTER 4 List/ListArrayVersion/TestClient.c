@@ -8,15 +8,18 @@ int main() {
 	AddLastElementList(a, 1);
 	AddLastElementList(a, 2);
 	AddLastElementList(a, 3);
-	AddLastElementList(a, 4);
-	AddLastElementList(a, 5);
-	AddLastElementList(a, 6);
+	AddFirstElementList(a, 0);
 
-	printf("%d", RemoveLastElementList(a));
+	// 0 1 2 3 
+
+	printf("%d\n", RemoveRankElementList(a, 1));
+	printf("%d\n", RemoveRankElementList(a, 1));
+	printf("%d\n", RemoveRankElementList(a, 1));
+	printf("%d\n", RemoveRankElementList(a, 1));
+
+	
 
 
-
-	//RemoveFirstElementList(a);	
 	RemoveList(&a);
 
 	

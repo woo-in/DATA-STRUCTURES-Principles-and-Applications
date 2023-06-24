@@ -13,7 +13,7 @@ enum ERROR_CODE { Memorylack, InvalidRank, FullList, EmptyList , DeallocatedList
 
 // O(1)
 List InitList() {
-	List init_list = malloc(sizeof(List *));
+	List init_list = malloc(sizeof(*init_list));
 	if (init_list == NULL) {
 		ErrorHandingFunction(Memorylack);
 	}
@@ -92,7 +92,7 @@ void AddRankElementList(List q_list , const int rank ,const ItemType add_item) {
 
 	q_list->list_size++; 
 
-	return; 
+	return;
 }
 
 // O(N) , N : element count 
@@ -152,13 +152,14 @@ ItemType RemoveRankElementList(List q_list, const int rank) {
 	// change location and delete item 
 	int end_index = q_list->list_size - 1;
 	int delete_index_next = rank ;
+	ItemType get_item = q_list->item[delete_index_next - 1];
 	for (int i = delete_index_next ; i <= end_index; i++) {
 		q_list->item[i - 1] = q_list->item[i];
 	}
 	
 	q_list->list_size--;
 
-	return; 
+	return get_item;
 }
 
 // O(N) , N : element count 
@@ -174,13 +175,14 @@ ItemType RemoveFirstElementList(List q_list) {
 	// change location and delete item 
 	int end_index = q_list->list_size - 1;
 	int delete_index_next = 1;
+	ItemType get_item = q_list->item[delete_index_next - 1];
 	for (int i = delete_index_next; i <= end_index; i++) {
 		q_list->item[i - 1] = q_list->item[i];
 	}
 
 	q_list->list_size--;
 
-	return; 
+	return get_item; 
 }
 
 // 0(1) 
@@ -193,9 +195,12 @@ ItemType RemoveLastElementList(List q_list) {
 		ErrorHandingFunction(EmptyList);
 	}
 
+	int end_index = q_list->list_size - 1; 
+	ItemType get_item = q_list->item[end_index];
+
 	q_list->list_size--;
 
-	return; 
+	return get_item; 
 }
 
 // O(1) 

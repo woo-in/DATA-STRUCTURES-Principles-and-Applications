@@ -13,6 +13,18 @@ int main() {
 
 	PrintDesignatedElementGroupList(a, 'A');
 
+	AddLastElementGroupList(a, 10, 'B');
+	AddLastElementGroupList(a, 20, 'B');
+	AddLastElementGroupList(a, 30, 'B');
+
+	PrintDesignatedElementGroupList(a, 'B');
+
+	RemoveDesignatedElementGroupList(a, 'A');
+	PrintDesignatedElementGroupList(a, 'A');
+
+	RemoveDesignatedElementGroupList(a, 'B');
+	PrintDesignatedElementGroupList(a, 'B');
+
 
 	//PrintDesignatedElementGroupList(a, 'A'); // null - > 2 
 

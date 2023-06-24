@@ -13,7 +13,8 @@ enum ERROR_CODE { Memorylack, InvalidRank, FullList, EmptyList , DeallocatedList
 
 // O(1)
 List InitList() {
-	List init_list = malloc(sizeof(List *));
+	//List init_list = malloc(sizeof(List *));
+	List init_list = malloc(sizeof(*init_list));
 	if (init_list == NULL) {
 		ErrorHandingFunction(Memorylack);
 	}
