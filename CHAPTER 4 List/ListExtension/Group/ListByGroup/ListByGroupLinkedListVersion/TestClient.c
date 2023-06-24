@@ -1,12 +1,11 @@
-#include <stdio.h>
-#include "ListByGroupArrayVersion.h"
+#include "ListByGroupLinkedListVersion.h"
 
 int main() {
 
 	GroupList a = InitGroupList();
 
 
-	
+
 	AddLastElementGroupList(a, 1, 1);
 	AddLastElementGroupList(a, 1, 1);
 	AddLastElementGroupList(a, 2, 2);
@@ -20,10 +19,10 @@ int main() {
 
 	RemoveAllElementDesignatedGroupList(a, 1);
 	PrintDesignatedElementGroupList(a, 1);
-	
-	
+
+
 	RemoveGroupList(&a);
 	//PrintDesignatedElementGroupList(a, 1);
 
-	return 0; 
+	return 0;
 }

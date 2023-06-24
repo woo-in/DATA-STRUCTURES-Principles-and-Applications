@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ListByGroupArrayVersion.h"
-#include "ListArrayVersion.h"
+#include "ListByGroupLinkedListVersion.h"
+#include "ListLinkedListVersion.h" 
 
 struct GroupListType {
-	List group[MAX_GROUP_LENGTH]; 
+	List group[MAX_GROUP_LENGTH];
 };
 
-enum ERROR_CODE { Memorylack, DeallocatedList , InvalidGroup };
+enum ERROR_CODE { Memorylack, DeallocatedList, InvalidGroup };
 
 // O(N) , N : setted MAX_GROUP_LENGTH 
 GroupList InitGroupList() {
@@ -15,11 +15,11 @@ GroupList InitGroupList() {
 	if (init_list == NULL) {
 		ErrorHandingFunction(Memorylack);
 	}
-	
+
 	for (int i = 0; i < MAX_GROUP_LENGTH; i++) {
 		init_list->group[i] = InitList();
 	}
-	
+
 	return init_list;
 }
 
@@ -40,7 +40,9 @@ void AddLastElementGroupList(GroupList q_list, const ItemType add_item, const in
 }
 
 
-// O(N) , N : designated_group_size   
+// O(N^2) , N : designated_group_size
+// for optimization ---> should customize
+// if ListLinkedListVersion have traverse function ---> O(N) 
 void PrintDesignatedElementGroupList(const GroupList q_list, const int designated_group) {
 	if (q_list == NULL) {
 		ErrorHandingFunction(DeallocatedList);
@@ -79,7 +81,7 @@ void RemoveAllElementDesignatedGroupList(GroupList q_list, const int designated_
 	return;
 }
 
-// O(N) , N : MAX_GROUP_LENGTH  
+// O(N) , N : setted MAX_GROUP_LENGTH 
 void RemoveGroupList(GroupList* remove_group_list_address) {
 	if (*remove_group_list_address == NULL) {
 		ErrorHandingFunction(DeallocatedList);
@@ -103,7 +105,7 @@ static void ErrorHandingFunction(enum ERROR_CODE code) {
 	switch (code)
 	{
 	case Memorylack: printf("ERROR : MEMORY IS NOT ENOUGH\n\n"); break;
-	case InvalidGroup: printf("ERROR : GROUP IS INVALID\n\n"); break; 
+	case InvalidGroup: printf("ERROR : GROUP IS INVALID\n\n"); break;
 	case DeallocatedList: printf("ERROR : LIST IS DEALLOCATED\n\n"); break;
 
 	default: printf("ERROR : ERROR CODE EXCEPTION\n\n"); break;

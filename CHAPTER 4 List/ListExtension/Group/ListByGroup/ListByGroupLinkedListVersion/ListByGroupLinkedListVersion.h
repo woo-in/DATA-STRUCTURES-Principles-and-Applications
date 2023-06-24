@@ -1,16 +1,15 @@
-#ifndef LIST_BY_GROUP_ARRAY_VERSION_H
-#define LIST_BY_GROUP_ARRAY_VERSION_H
+#ifndef LIST_BY_GROUP_LINKED_LIST_VERSION_H
+#define LIST_BY_GROUP_LINKED_LIST_VERSION_H
 
 
 ////////////////////////////////////////////////////////
 #define MAX_GROUP_LENGTH 10 
-typedef int ItemType; 
+typedef int ItemType;
 // suppose that group name : 1 , 2 , 3 , ... (integer) 
 ////////////////////////////////////////////////////////
 
 
-
-typedef struct GroupListType* GroupList; 
+typedef struct GroupListType* GroupList;
 
 GroupList InitGroupList();
 void AddLastElementGroupList(GroupList q_list, const ItemType add_item, const int designated_group);
