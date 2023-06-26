@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "ListByGroupArrayVersion.h"
+#include "GroupList.h"
 
 int main() {
 

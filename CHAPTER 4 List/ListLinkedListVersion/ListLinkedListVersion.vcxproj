@@ -127,11 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ListLinkedListVersion.c" />
+    <ClCompile Include="List.c" />
     <ClCompile Include="TestClient.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ListLinkedListVersion.h" />
+    <ClInclude Include="List.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

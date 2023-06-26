@@ -18,12 +18,12 @@
     <ClCompile Include="TestClient.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="RecordOfListArrayVersion.c">
+    <ClCompile Include="GroupList.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RecordOfListArrayVersion.h">
+    <ClInclude Include="GroupList.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

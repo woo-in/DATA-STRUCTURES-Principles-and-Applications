@@ -1,9 +1,10 @@
-#ifndef RECORD_OF_LIST_LINKED_LIST_VERSION_H
-#define RECORD_OF_LIST_LINKED_LIST_VERSION_H
+#ifndef GROUP_LIST_H
+#define GROUP_LIST_H
 
 #include <stdbool.h>
 
 /////////////////////////////////////////////////////////////////////////////
+#define MAX_GROUP_LIST_LENGTH 10 // user can modify max length of list     //
 typedef int ItemType; // user can modify type of item                      //
 typedef char GroupType; // user can modify type of group                   // 
 ///////////////////////////////////////////////////////////////////////////// 
@@ -18,5 +19,4 @@ void RemoveGroupList(GroupList* remove_group_list_address);
 
 static void ErrorHandingFunction(enum ERROR_CODE code);
 
-static struct Node* Get_Node(); 
 #endif 

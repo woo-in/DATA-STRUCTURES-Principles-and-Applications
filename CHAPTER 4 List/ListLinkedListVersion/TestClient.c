@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "ListLinkedListVersion.h"
+#include "List.h"
 
 int main() {
 
@@ -15,8 +15,8 @@ int main() {
 
 	printf("%d", RemoveRankElementList(a, 1));
 	printf("%d", RemoveRankElementList(a, 1));
-	printf("%d", RemoveRankElementList(a, 1));
-	printf("%d", RemoveRankElementList(a, 1));
+	
+
 	// 
 
 	// 3 2 1 

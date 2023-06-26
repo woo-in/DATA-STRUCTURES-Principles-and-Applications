@@ -1,4 +1,5 @@
-#include "RecordOfListArrayVersion.h"
+/* Group List Record Of List Array Version */
+#include "GroupList.h"
 #include <stdio.h>
 #include <stdlib.h>
 

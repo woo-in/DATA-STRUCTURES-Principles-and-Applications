@@ -15,21 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ListLinkedListVersion.h">
+    <ClInclude Include="GroupList.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ListByGroupLinkedListVersion.h">
+    <ClInclude Include="..\..\..\..\ListLinkedListVersion\List.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ListLinkedListVersion.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="TestClient.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ListByGroupLinkedListVersion.c">
+    <ClCompile Include="GroupList.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\ListLinkedListVersion\List.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

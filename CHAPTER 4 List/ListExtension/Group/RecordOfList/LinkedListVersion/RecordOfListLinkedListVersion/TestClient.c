@@ -1,4 +1,4 @@
-#include "RecordOfListLinkedListVersion.h"
+#include "GroupList.h"
 
 int main() {
 

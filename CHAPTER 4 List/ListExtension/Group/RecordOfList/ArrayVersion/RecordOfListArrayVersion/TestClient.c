@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "RecordOfListArrayVersion.h"
+#include "GroupList.h"
 
 int main() {
 
@@ -17,12 +17,6 @@ int main() {
 	AddLastElementGroupList(a, 20, 'B');
 	AddLastElementGroupList(a, 30, 'B');
 
-	PrintDesignatedElementGroupList(a, 'B');
-
-	RemoveDesignatedElementGroupList(a, 'A');
-	PrintDesignatedElementGroupList(a, 'A');
-
-	RemoveDesignatedElementGroupList(a, 'B');
 	PrintDesignatedElementGroupList(a, 'B');
 
 

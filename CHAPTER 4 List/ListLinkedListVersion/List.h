@@ -1,5 +1,5 @@
-#ifndef LIST_LINKED_LIST_VERSION_H
-#define LIST_LINKED_LIST_VERSION_H
+#ifndef LIST_H
+#define LIST_H
 
 #include <stdbool.h>
 

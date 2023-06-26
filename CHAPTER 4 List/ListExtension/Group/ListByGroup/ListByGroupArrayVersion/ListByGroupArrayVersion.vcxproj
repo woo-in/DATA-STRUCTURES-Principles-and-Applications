@@ -127,13 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ListArrayVersion.c" />
-    <ClCompile Include="ListByGroupArrayVersion.c" />
+    <ClCompile Include="List.c" />
+    <ClCompile Include="GroupList.c" />
     <ClCompile Include="TestClient.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ListArrayVersion.h" />
-    <ClInclude Include="ListByGroupArrayVersion.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="GroupList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

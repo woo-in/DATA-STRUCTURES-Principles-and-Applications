@@ -1,5 +1,5 @@
-#ifndef LIST_BY_GROUP_ARRAY_VERSION_H
-#define LIST_BY_GROUP_ARRAY_VERSION_H
+#ifndef GROUP_LIST_H
+#define GROUP_LIST_H
 
 
 ////////////////////////////////////////////////////////

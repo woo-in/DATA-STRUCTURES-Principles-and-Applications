@@ -1,7 +1,8 @@
+/* List Linked List Version */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "ListLinkedListVersion.h"
+#include "List.h"
 
 struct Node {
 	ItemType item;

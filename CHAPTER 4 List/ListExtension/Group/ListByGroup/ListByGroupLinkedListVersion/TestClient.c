@@ -1,4 +1,4 @@
-#include "ListByGroupLinkedListVersion.h"
+#include "GroupList.h"
 
 int main() {
 
@@ -11,14 +11,12 @@ int main() {
 	AddLastElementGroupList(a, 2, 2);
 	AddLastElementGroupList(a, 2, 2);
 	AddLastElementGroupList(a, 3, 3);
-	AddLastElementGroupList(a, 3, 3);
+	AddLastElementGroupList(a, 4, 3);
 
 	PrintDesignatedElementGroupList(a, 1);
 	PrintDesignatedElementGroupList(a, 2);
 	PrintDesignatedElementGroupList(a, 3);
 
-	RemoveAllElementDesignatedGroupList(a, 1);
-	PrintDesignatedElementGroupList(a, 1);
 
 
 	RemoveGroupList(&a);

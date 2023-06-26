@@ -1,6 +1,7 @@
+/* Group List Record Of List Linked List Version */
 #include <stdio.h>
 #include <stdlib.h>
-#include "RecordOfListLinkedListVersion.h"
+#include "GroupList.h"
 
 struct Node {
 	ItemType item;

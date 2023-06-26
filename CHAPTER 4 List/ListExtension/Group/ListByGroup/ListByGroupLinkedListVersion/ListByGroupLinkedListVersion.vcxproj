@@ -127,12 +127,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ListByGroupLinkedListVersion.h" />
-    <ClInclude Include="ListLinkedListVersion.h" />
+    <ClInclude Include="..\..\..\..\ListLinkedListVersion\List.h" />
+    <ClInclude Include="GroupList.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ListByGroupLinkedListVersion.c" />
-    <ClCompile Include="ListLinkedListVersion.c" />
+    <ClCompile Include="..\..\..\..\ListLinkedListVersion\List.c" />
+    <ClCompile Include="GroupList.c" />
     <ClCompile Include="TestClient.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
