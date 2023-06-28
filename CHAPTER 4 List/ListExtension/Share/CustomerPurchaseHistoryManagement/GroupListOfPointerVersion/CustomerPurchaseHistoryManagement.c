@@ -1,3 +1,4 @@
+#pragma warning(disable:4996)
 #include "CustomerPurchaseHistoryManagement.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,8 +28,8 @@ struct CustomerPurchaseHistoryType {
 	struct Customer* customer_list; 
 };
 
-enum ERROR_CODE { Memorylack, InvalidCustomer, InvalidProduct ,  DeallocatedList };
-// invalid name = NULL , DeallocatedList !! 
+enum ERROR_CODE { Memorylack, InvalidCustomer, InvalidProduct ,  Deallocated };
+
 // O(1)
 CustomerPurchaseHistory InitHandler() {
 	CustomerPurchaseHistory init_customer_purchase_history = malloc(sizeof(*init_customer_purchase_history));
@@ -44,20 +45,28 @@ CustomerPurchaseHistory InitHandler() {
 
 // O(1) 
 void ApplyNewCustomer(CustomerPurchaseHistory customer_purchase_history, const char* customer_name, const int customer_number) {
+	if (customer_purchase_history == NULL) {
+		ErrorHandler(Deallocated);
+	}
+
 	struct Customer* new_customer = MakeNewCustomer(customer_name, customer_number);
 
-	new_customer->next_customer = customer_purchase_history->customer_list; 
-	customer_purchase_history->customer_list = new_customer;
+	new_customer->next_customer = customer_purchase_history->customer_list->next_customer;
+	customer_purchase_history->customer_list->next_customer = new_customer;
 
 	return; 
 }
 
 // O(1) 
 void ApplyNewProduct(CustomerPurchaseHistory customer_purchase_history, const char* product_name, const int product_number) {
+	if (customer_purchase_history == NULL) {
+		ErrorHandler(Deallocated);
+	}
+
 	struct Product* new_product = MakeNewProduct(product_name, product_number);
 
-	new_product->next_product = customer_purchase_history->product_list;
-	customer_purchase_history->product_list = new_product;
+	new_product->next_product = customer_purchase_history->product_list->next_product;
+	customer_purchase_history->product_list->next_product = new_product;
 
 	return; 
 }
@@ -65,7 +74,11 @@ void ApplyNewProduct(CustomerPurchaseHistory customer_purchase_history, const ch
 
 // O(N+M) , N : 고객수 M : 상품수 
 void PurchaseNewProduct(CustomerPurchaseHistory customer_purchase_history, const char* purchase_customer_name, const char* purchase_product_name) {
-	struct Customer* purchase_customer = customer_purchase_history->customer_list; 
+	if (customer_purchase_history == NULL) {
+		ErrorHandler(Deallocated);
+	}
+
+	struct Customer* purchase_customer = customer_purchase_history->customer_list->next_customer;
 	while (purchase_customer != NULL) {
 		if (strcmp(purchase_customer->name, purchase_customer_name) == 0)
 			break; 
@@ -75,7 +88,7 @@ void PurchaseNewProduct(CustomerPurchaseHistory customer_purchase_history, const
 		ErrorHandler(InvalidCustomer);
 	}
 
-	struct Product* purchase_product = customer_purchase_history->product_list;
+	struct Product* purchase_product = customer_purchase_history->product_list->next_product;
 	while (purchase_product != NULL) {
 		if (strcmp(purchase_product->name, purchase_product_name) == 0)
 			break;
@@ -96,7 +109,11 @@ void PurchaseNewProduct(CustomerPurchaseHistory customer_purchase_history, const
 
 // O(N+M) , N : 고객수 M : 고객의 구매 상품 수 
 void RefundProduct(CustomerPurchaseHistory customer_purchase_history, const char* refund_customer_name, const char* refund_product_name) {
-	struct Customer* refund_customer = customer_purchase_history->customer_list;
+	if (customer_purchase_history == NULL) {
+		ErrorHandler(Deallocated);
+	}
+
+	struct Customer* refund_customer = customer_purchase_history->customer_list->next_customer;
 	while (refund_customer != NULL) {
 		if (strcmp(refund_customer->name, refund_customer_name) == 0)
 			break;
@@ -106,8 +123,8 @@ void RefundProduct(CustomerPurchaseHistory customer_purchase_history, const char
 		ErrorHandler(InvalidCustomer);
 	}
 
-	struct Purchase* refund_purchase = refund_customer->purchase_list; 
-	struct Purchase* refund_purchase_prev = NULL; 
+	struct Purchase* refund_purchase_prev = refund_customer->purchase_list;
+	struct Purchase* refund_purchase = refund_purchase_prev->next_purchase;
 	while (refund_purchase != NULL) {
 		if (strcmp(refund_purchase->purchase_product->name, refund_product_name) == 0) {
 			refund_purchase_prev->next_purchase = refund_purchase->next_purchase; 
@@ -126,7 +143,11 @@ void RefundProduct(CustomerPurchaseHistory customer_purchase_history, const char
 
 // O(N+M) , N : 고객수 M : 고객의 구매 상품 수
 void PrintPurchaseHistory(const CustomerPurchaseHistory customer_purchase_history, const char* print_customer_name) {
-	struct Customer* print_customer = customer_purchase_history->customer_list;
+	if (customer_purchase_history == NULL) {
+		ErrorHandler(Deallocated);
+	}
+
+	struct Customer* print_customer = customer_purchase_history->customer_list->next_customer;
 	while (print_customer != NULL) {
 		if (strcmp(print_customer->name, print_customer_name) == 0)
 			break;
@@ -136,11 +157,11 @@ void PrintPurchaseHistory(const CustomerPurchaseHistory customer_purchase_histor
 		ErrorHandler(InvalidCustomer);
 	}
 
-	printf("%s PURCHASES : "); 
+	printf("PURCHASES :"); 
 
 	struct Purchase* print_purchase = print_customer->purchase_list->next_purchase; 
 	while (print_purchase != NULL) {
-		printf(" %s", print_purchase->purchase_product->name);
+		printf(" (%s)", print_purchase->purchase_product->name);
 		print_purchase = print_purchase->next_purchase; 
 	}
 
@@ -150,8 +171,11 @@ void PrintPurchaseHistory(const CustomerPurchaseHistory customer_purchase_histor
 }
 
 // O(N+M+K) , N : 고객수 M : 고객의 구매 상품 수 K : 고객의 상품 구매수 
-void RemoveCustomerPurchaseHistory(CustomerPurchaseHistory* remove_cutomer_purchase_history) {
-	struct Customer* remove_customer = (*remove_cutomer_purchase_history)->customer_list;
+void RemoveCustomerPurchaseHistory(CustomerPurchaseHistory* remove_customer_purchase_history) {
+	if (*(remove_customer_purchase_history) == NULL) {
+		ErrorHandler(Deallocated);
+	}
+	struct Customer* remove_customer = (*remove_customer_purchase_history)->customer_list;
 	struct Customer* remove_customer_next = remove_customer->next_customer; 
 	struct Purchase* remove_purchase = NULL; 
 	struct Purchase* remove_purchase_next = NULL; 
@@ -172,7 +196,7 @@ void RemoveCustomerPurchaseHistory(CustomerPurchaseHistory* remove_cutomer_purch
 			remove_customer_next = remove_customer_next->next_customer; 
 	}
 
-	struct Product* remove_product = (*remove_cutomer_purchase_history)->product_list;
+	struct Product* remove_product = (*remove_customer_purchase_history)->product_list;
 	struct Product* remove_product_next = remove_product->next_product; 
 	while (remove_product != NULL) {
 		free(remove_product);
@@ -181,9 +205,9 @@ void RemoveCustomerPurchaseHistory(CustomerPurchaseHistory* remove_cutomer_purch
 			remove_product_next = remove_product_next->next_product; 
 	}
 
-	free(*remove_cutomer_purchase_history); 
+	free(*remove_customer_purchase_history); 
 
-	*remove_cutomer_purchase_history = NULL;  
+	*remove_customer_purchase_history = NULL;  
 	return;
 }
 
@@ -197,7 +221,9 @@ static struct Product* MakeNewProduct(const char* product_name, const int produc
 		ErrorHandler(Memorylack);
 	}
 
-	strcpy(new_product->name, product_name);
+	strncpy(new_product->name, product_name, sizeof(new_product->name) - 1);
+	new_product->name[sizeof(new_product->name) - 1] = '\0';
+
 	new_product->number = product_number; 
 	new_product->next_product = NULL; ;
 
@@ -224,7 +250,9 @@ static struct Customer* MakeNewCustomer(const char* customer_name, const int cus
 		ErrorHandler(Memorylack);
 	}
 
-	strcpy(new_customer->name, customer_name);
+	strncpy(new_customer->name, customer_name, sizeof(new_customer->name) - 1);
+	new_customer->name[sizeof(new_customer->name) - 1] = '\0';
+
 	new_customer->number = customer_number; 
 	new_customer->next_customer = NULL; 
 	new_customer->purchase_list = MakeNewPurchase();
@@ -238,11 +266,33 @@ static void ErrorHandler(enum ERROR_CODE code) {
 	{
 	case Memorylack: printf("ERROR : MEMORY IS NOT ENOUGH\n\n"); break;
 	case InvalidCustomer: printf("ERROR : CUSTOMER IS INVALID\n\n"); break;
-	case InvalidProduct: printf("ERROR : PRODUCT IS FULL\n\n"); break;
-	case DeallocatedList: printf("ERROR : LIST IS DEALLOCATED\n\n"); break;
+	case InvalidProduct: printf("ERROR : PRODUCT IS INVALID\n\n"); break;
+	case Deallocated: printf("ERROR : DEALLOCATED\n\n"); break;
 
 	default: printf("ERROR : ERROR CODE EXCEPTION\n\n"); break;
 	}
 
 	exit(0);
+}
+
+void tmptPRINT(CustomerPurchaseHistory a) {
+	struct Customer* k = a->customer_list->next_customer; 
+
+	while (k != NULL) {
+		printf("%s ", k->name);
+		k = k->next_customer; 
+	}
+
+
+}
+
+void tmptPRINT2(CustomerPurchaseHistory a) {
+	struct Product* k = a->product_list->next_product;
+
+	while (k != NULL) {
+		printf("%s ", k->name);
+		k = k->next_product;
+	}
+
+
 }
