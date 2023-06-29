@@ -274,25 +274,3 @@ static void ErrorHandler(enum ERROR_CODE code) {
 
 	exit(0);
 }
-
-void tmptPRINT(CustomerPurchaseHistory a) {
-	struct Customer* k = a->customer_list->next_customer; 
-
-	while (k != NULL) {
-		printf("%s ", k->name);
-		k = k->next_customer; 
-	}
-
-
-}
-
-void tmptPRINT2(CustomerPurchaseHistory a) {
-	struct Product* k = a->product_list->next_product;
-
-	while (k != NULL) {
-		printf("%s ", k->name);
-		k = k->next_product;
-	}
-
-
-}

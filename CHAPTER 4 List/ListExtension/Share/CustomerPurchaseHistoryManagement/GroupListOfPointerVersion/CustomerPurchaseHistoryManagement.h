@@ -1,8 +1,6 @@
 #ifndef _CUSTOMER_PURCHASE_HISTORY_MANAGEMENT_H
 #define _CUSTOMER_PURCHASE_HISTORY_MANAGEMENT_H
 
-
-
 typedef struct CustomerPurchaseHistoryType* CustomerPurchaseHistory; 
 
 CustomerPurchaseHistory InitHandler();
@@ -18,6 +16,4 @@ static struct Purchase* MakeNewPurchase();
 static struct Customer* MakeNewCustomer(const char* customer_name, const int customer_number);
 static void ErrorHandler(enum ERROR_CODE code); 
 
-void tmptPRINT(CustomerPurchaseHistory a);
-void tmptPRINT2(CustomerPurchaseHistory a);
 #endif
