@@ -34,7 +34,7 @@ AddLastElementGroupList , PrintDesignatedElementGroupList , RemoveDesignatedElem
 
 # besides : 
 
-**ListLinkedListVersion.h**   
+**GroupList.h**   
 User can modify max length of  group list and type of item. ( group is int default )     
 
 ![화면 캡처 2023-06-24 231520](https://github.com/woo-in/DATA-STRUCTURES-Principles-and-Applications/assets/69314509/45a2480a-02cb-4f6a-9aeb-97b61b249ae3)   
