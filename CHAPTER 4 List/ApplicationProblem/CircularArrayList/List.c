@@ -46,7 +46,7 @@ ItemType GetRankElementList(const List q_list, const  int rank) {
 	}
 
 	// error handing 
-	if (rank <= 0 && GetSizeList(q_list) < rank) {
+	if (rank <= 0 || GetSizeList(q_list) < rank) {
 		ErrorHandingFunction(InvalidRank);
 	}
 
@@ -111,6 +111,7 @@ void AddRankElementList(List q_list, const int rank, const ItemType add_item) {
 		q_list->rear = (q_list->rear + 1) % MAX_LIST_LENGTH; 
 	}
 	q_list->item[(q_list->front + rank - 1) % MAX_LIST_LENGTH] = add_item;
+
 	return; 
 }
 
@@ -136,20 +137,25 @@ ItemType RemoveRankElementList(List q_list, const int rank) {
 	// get rank element 
 	ItemType get_item = q_list->item[(q_list->front + rank - 1) % MAX_LIST_LENGTH];
 
-	// conclusion of pull left or right and pull 
+	// conclusion of pull left or right 
+	// pull and modify front or rear 
+	// use logic ==> ( if rank is valid ) rank k's element ==> q_list->item[(q_list->front + k - 1) % MAX_LIST_LENGTH]  
 	if (rank <= list_size / 2) {
 		// left 
-		for (i = 1; i <= rank; i++) {
-			q_list->item[(q_list->front + i - 2) % MAX_LIST_LENGTH] = q_list->item[(q_list->front + i - 1) % MAX_LIST_LENGTH];
+		for (i = rank ; i >= 1; i--) {
+			q_list->item[(q_list->front + i - 1) % MAX_LIST_LENGTH] = q_list->item[((q_list->front + i - 1) - 1)];
 		}
+		q_list->front = (q_list->front + 1) % MAX_LIST_LENGTH; 
 	}
 	else {
 		// right 
-		for (i = list_size; i >= rank; i--) {
-			q_list->item[(q_list->front + i) % MAX_LIST_LENGTH] = q_list->item[(q_list->front + i - 1) % MAX_LIST_LENGTH];
+		for (i = rank; i < list_size ; i++) {
+			q_list->item[(q_list->front + i - 1) % MAX_LIST_LENGTH] = q_list->item[(q_list->front + (i + 1) - 1) % MAX_LIST_LENGTH];
 		}
+		q_list->rear = q_list->rear - 1 < 0 ? MAX_LIST_LENGTH - 1 : q_list->rear - 1;
+		
 	}
-	
+
 	// return item 
 	return get_item; 
 }
@@ -157,14 +163,15 @@ ItemType RemoveRankElementList(List q_list, const int rank) {
 
 // O(1) 
 void RemoveList(List* remove_list_address) {
+	// error handlig 
 	if (*remove_list_address == NULL) {
 		ErrorHandingFunction(DeallocatedList);
 	}
 
 	List* deallocating_address = remove_list_address;
-
+	// allocate NULL ==> for dangling pointer problem 
 	(*remove_list_address) = NULL;
-
+	// deallocate 
 	free(*remove_list_address);
 
 	return;
@@ -187,9 +194,3 @@ static void ErrorHandingFunction(enum ERROR_CODE code) {
 	exit(0);
 }
 
-void PRINT(List q_list)
-{
-	int i; 
-	for (i = 0; i < MAX_LIST_LENGTH; i++)
-		printf(" %d", q_list->item[i]);
-}
