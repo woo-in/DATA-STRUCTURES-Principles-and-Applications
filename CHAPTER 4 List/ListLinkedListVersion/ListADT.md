@@ -65,7 +65,7 @@ GetSizeList , IsEmptyList , GetRankElementList , AddLastElementList , AddFirstEl
 
 # besides : 
 
-**ListArrayVersion.h**   
+**List.h**   
 User can modify type of item.   
 
 ![usercan](https://github.com/woo-in/DATA-STRUCTURES-Principles-and-Applications/assets/69314509/c161f1be-1ea1-40e6-ba8e-cae2b1cd983c)

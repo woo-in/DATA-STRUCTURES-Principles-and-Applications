@@ -69,7 +69,7 @@ GetSizeList , IsEmptyList , GetRankElementList , AddLastElementList , AddFirstEl
 
 # besides : 
 
-**ListArrayVersion.h**   
+**List.h**   
 User can modify max length of list and type of item.
 
 

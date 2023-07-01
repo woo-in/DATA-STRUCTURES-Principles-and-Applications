@@ -32,7 +32,7 @@ AddLastElementGroupList , PrintDesignatedElementGroupList , RemoveDesignatedElem
 
 # besides : 
 
-**ListLinkedListVersion.h**    
+**GroupList.h**    
 
 User can modify type of item and group.     
 
