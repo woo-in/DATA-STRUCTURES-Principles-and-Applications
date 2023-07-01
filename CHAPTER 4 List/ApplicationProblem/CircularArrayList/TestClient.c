@@ -29,8 +29,5 @@ int main() {
 
 	AddRankElementList(a, 1, 1);
 
-	
-
-
 	return 0; 
 }

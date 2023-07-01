@@ -191,6 +191,6 @@ static void ErrorHandingFunction(enum ERROR_CODE code) {
 	default: printf("ERROR : ERROR CODE EXCEPTION\n\n"); break;
 	}
 
-	exit(0);
-}
+	exit(0); 
 
+}
