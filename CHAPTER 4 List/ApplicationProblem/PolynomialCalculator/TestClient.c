@@ -19,9 +19,11 @@ int main() {
 	ShowPolynomial(SubPolynomial(p1, p2));
 
 	RemovePolynomial(&p1);
+	
 
 	AppendTerm(p1, 1, 1);
 	
+
 
 
 

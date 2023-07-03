@@ -116,13 +116,16 @@ void RemoveGroupList(GroupList* remove_group_list_address) {
 	}
 
 	// rotate for free 
-	struct Node* tmp_deallocating = NULL;
-	struct Node* tmp = (*remove_group_list_address)->header->next; // 1st item node or trailer(size : 0) 
-	while (tmp->next != NULL) {
-		tmp_deallocating = tmp;
-		tmp = tmp->next;
-		free(tmp_deallocating);
+	struct Node* tmp = (*remove_group_list_address)->header;
+	struct Node* tmp_next = tmp->next;
+	while (tmp_next != NULL) {
+		free(tmp);
+		tmp = tmp_next;
+		tmp_next = tmp_next->next;
 	}
+	free(tmp);
+
+	
 
 	GroupList* deallocating_list_address = remove_group_list_address;
 

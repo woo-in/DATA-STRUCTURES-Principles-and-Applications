@@ -1,10 +1,10 @@
-#ifndef LIST_LINKED_LIST_VERSION_H
-#define LIST_LINKED_LIST_VERSION_H
+#ifndef LIST_H
+#define LIST_H
 
 #include <stdbool.h>
 
 /////////////////////////////////////////////////////////////////////////       
-typedef int ItemType;// user can modify type of data                  // 
+typedef char * ItemType;// user can modify type of data                  // 
 ///////////////////////////////////////////////////////////////////////// 
 
 typedef struct ListType* List; // incompelete type of information hiding 

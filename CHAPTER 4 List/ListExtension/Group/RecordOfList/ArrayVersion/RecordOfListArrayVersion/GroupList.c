@@ -14,14 +14,14 @@ enum ERROR_CODE { Memorylack, FullList, EmptyList, DeallocatedList };
 
 // O(1) 
 GroupList InitGroupList() {
-	GroupList init_Group = malloc(sizeof(*init_Group));
-	if (init_Group == NULL) {
+	GroupList init_group = malloc(sizeof(*init_group));
+	if (init_group == NULL) {
 		ErrorHandingFunction(Memorylack);
 	}
 
-	init_Group->group_list_size = 0;
+	init_group->group_list_size = 0;
 
-	return init_Group; 
+	return init_group; 
 }
 
 // O(1) 

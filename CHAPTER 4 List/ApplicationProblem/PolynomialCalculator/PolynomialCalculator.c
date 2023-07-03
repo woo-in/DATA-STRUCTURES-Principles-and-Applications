@@ -157,16 +157,16 @@ void RemovePolynomial(Polynomial* remove_polynomial_address) {
 	}
 
 	// traverse and free 
-	struct Term* pre_term = (*remove_polynomial_address)->header;
-	struct Term* now_term = pre_term->next; 
-	while (pre_term != NULL) {
-		free(pre_term);
-
-		pre_term = now_term; 
-		if (now_term != NULL) {
-			now_term = now_term->next; 
-		}
+	struct Term* now_term = (*remove_polynomial_address)->header;
+	struct Term* next_term = now_term->next; 
+	while (next_term != NULL) {
+		free(now_term);
+		now_term = next_term;
+		next_term = next_term->next; 
 	}
+	free(now_term);
+
+
 
 	// for dangling pointer problem 
 	Polynomial remove_polynomial = (*remove_polynomial_address);
