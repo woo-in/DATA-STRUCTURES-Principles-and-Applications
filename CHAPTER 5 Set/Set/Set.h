@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 /////////////////////////////////////////////////////////////////////////       
-typedef char* ItemType;// user can modify type of data                  // 
+typedef int ItemType;// user can modify type of data                  // 
 ///////////////////////////////////////////////////////////////////////// 
 
 typedef struct SetType* Set;
@@ -22,6 +22,8 @@ bool IsElement(const Set existing_set, const ItemType item_to_check);
 bool IsSubset(const Set big_set, const Set checked_set);
 
 Set GetUnionSet(const Set A, const Set B);
+Set GetIntersectSet(const Set A, const Set B);
+Set GetSubtractSet(const Set A, const Set B);
 
 void RemoveSet(Set* remove_set_address);
 

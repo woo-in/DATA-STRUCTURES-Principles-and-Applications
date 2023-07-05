@@ -3,28 +3,36 @@
 #include "Set.h" 
 
 
-
+int comp(int a, int b);
 int main() {
 
-	Set s1 = InitSet(strcmp); 
-	Set s2 = InitSet(strcmp);
+	Set s1 = InitSet(comp); 
+	Set s2 = InitSet(comp);
 
 	
-	AddElement(s1, "a");
-	AddElement(s1, "b");
-	AddElement(s1, "c");
-	AddElement(s1, "e");
+	AddElement(s1, 1);
 
-	AddElement(s2, "d");
+	RemoveElement(s1, 1);
+
+	AddElement(s1, 1);
+
 	
-	Set s3 = GetUnionSet(s1, s2);
-	PrintAllElement(s3);
-
-	printf("%d", GetSizeSet(s3));
+	
+	AddElement(s1, 2);
+	AddElement(s1, 3);
+	printf("\n%d\n", GetSizeSet(s1));
 
 	RemoveSet(&s1);
 	RemoveSet(&s2);
-	RemoveSet(&s3);
+	
 
 	return 0; 
+}
+int comp(int a, int b) {
+	if (a > b)
+		return 1;
+	else if (a < b)
+		return -1;
+	else if (a == b)
+		return 0; 
 }

@@ -361,9 +361,134 @@ Set GetUnionSet(const Set A, const Set B){
 	return get_set; 
 }
 
+// O( A + B ) , A : element count Set A , B : element count of Set B 
+Set GetIntersectSet(const Set A, const Set B) {
+	// error handling 
+	if (A == NULL || B == NULL) {
+		ErrorHandingFunction(DeallocatedSet);
+	}
 
+	// make new set 
+	Set get_set = InitSet(A->sort_criteria);
 
+	// direct add element to set ascending order  
+	struct Node* a_set_element = A->header->next;
+	struct Node* b_set_element = B->header->next;
+	int judge_number = 0;
+	struct Node* add_front_point = get_set->header;
+	// while reaching NULL either of them 
+	while (a_set_element != NULL && b_set_element != NULL) {
+		judge_number = A->sort_criteria(a_set_element->item, b_set_element->item);
 
+		// smaller goes to next node 
+		if (judge_number < 0) {
+			a_set_element = a_set_element->next;
+		}
+		else if (judge_number > 0) {
+			b_set_element = b_set_element->next;
+		}
+		else {
+			// if same add one of them , both of them go to next node 
+
+			// add A or B  -------------------------
+			// make and connet 
+			struct Node* new_node = Get_Node();
+			new_node->item = b_set_element->item;
+			new_node->next = NULL;
+			new_node->prev = add_front_point;
+
+			// modify other section 
+			add_front_point->next = new_node;
+
+			// set element plus 1 
+			get_set->set_size++;
+
+			// renew add_front_point 
+			add_front_point = new_node;
+			// --------------------------------
+			a_set_element = a_set_element->next;
+			b_set_element = b_set_element->next;
+		}
+	}
+
+	return get_set;
+}
+
+// O( A + B ) , A : element count Set A , B : element count of Set B 
+Set GetSubtractSet(const Set A, const Set B) {
+	// error handling 
+	if (A == NULL || B == NULL) {
+		ErrorHandingFunction(DeallocatedSet);
+	}
+
+	// make new set 
+	Set get_set = InitSet(A->sort_criteria);
+
+	// direct add element to set ascending order  
+	struct Node* a_set_element = A->header->next;
+	struct Node* b_set_element = B->header->next;
+	int judge_number = 0;
+	struct Node* add_front_point = get_set->header;
+	// while reaching NULL either of them 
+	while (a_set_element != NULL && b_set_element != NULL) {
+		judge_number = A->sort_criteria(a_set_element->item, b_set_element->item);
+
+		
+		if (judge_number < 0) {
+			// A < B 
+			// add A  -------------------------
+			// make and connet 
+			struct Node* new_node = Get_Node();
+			new_node->item = a_set_element->item;
+			new_node->next = NULL;
+			new_node->prev = add_front_point;
+
+			// modify other section 
+			add_front_point->next = new_node;
+
+			// set element plus 1 
+			get_set->set_size++;
+
+			// renew add_front_point 
+			add_front_point = new_node;
+			// --------------------------------
+			a_set_element = a_set_element->next;
+		}
+		else if (judge_number > 0) {
+			// A > B 
+			b_set_element = b_set_element->next;
+		}
+		else {
+			// if same add one of them 
+			a_set_element = a_set_element->next;
+			b_set_element = b_set_element->next;
+		}
+	}
+
+	// add last of element rear of get_set
+	while (a_set_element != NULL) {
+		// add A  -------------------------
+			// make and connet 
+		struct Node* new_node = Get_Node();
+		new_node->item = a_set_element->item;
+		new_node->next = NULL;
+		new_node->prev = add_front_point;
+
+		// modify other section 
+		add_front_point->next = new_node;
+
+		// set element plus 1 
+		get_set->set_size++;
+
+		// renew add_front_point 
+		add_front_point = new_node;
+		// --------------------------------
+
+		a_set_element = a_set_element->next;
+	}
+
+	return get_set;
+}
 
 
 
