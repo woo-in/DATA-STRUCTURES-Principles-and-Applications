@@ -17,24 +17,24 @@ a < b --> desending order.
 **int GetSizeSet(const Set existing_set)**   
 Return existing_set size (the number of individuals). 
 
-**bool IsEmpty(const Set existing_set)**   
+**bool IsEmptySet(const Set existing_set)**   
 If existing_set is empty , return true.     
 Otherwise , return false. 
      
-**void PrintAllElement(const Set existing_set)**    
+**void PrintAllElementSet(const Set existing_set)**    
 Print all element of existing_set.    
 
-**void AddElement(Set existing_set, const ItemType item_to_add)**      
+**void AddElementSet(Set existing_set, const ItemType item_to_add)**      
 Add new element(item_to_add) to existing_set.    
 
-**void RemoveElement(Set existing_set, const ItemType item_to_remove)**      
+**void RemoveElementSet(Set existing_set, const ItemType item_to_remove)**      
 Remove element(item_to_remove) from existing_set.    
 
-**bool IsElement(const Set existing_set, const ItemType item_to_check)**        
+**bool IsElementSet(const Set existing_set, const ItemType item_to_check)**        
 If element(item_to_check) is element of existing_set , return true.
 Otherwise , return false.     
 
-**bool IsSubset(const Set compare_set, const Set checked_set)**       
+**bool IsSubSet(const Set compare_set, const Set checked_set)**       
 If checked_set is subset of compare_set , return true.
 Otherwise , return false.    
 
@@ -60,10 +60,10 @@ InitSet
 IsSubset , GetUnionSet , GetIntersectSet , GetSubtractSet
 
 **EmptySet**   
-RemoveElement , 
+RemoveElementSet     
 
 **DeallocatedSet**   
-GetSizeSet , IsEmpty , PrintAllElement , AddElement , RemoveElement , IsElement , IsSubset , GetUnionSet , GetIntersectSet    
+GetSizeSet , IsEmptySet , PrintAllElementSet , AddElementSet , RemoveElementSet , IsElementSet , IsSubSet , GetUnionSet , GetIntersectSet    
 GetSubtractSet , RemoveSet
 
 # besides : 
