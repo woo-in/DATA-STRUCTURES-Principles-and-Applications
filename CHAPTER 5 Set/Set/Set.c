@@ -47,22 +47,35 @@ Set InitSet(const int (*sort_criteria)(ItemType a, ItemType b)) {
 
 // O(1)
 int GetSizeSet(const Set existing_set) {
+	// error handling 
+	if (existing_set == NULL) {
+		ErrorHandingFunction(DeallocatedSet);
+	}
 	return existing_set->set_size; 
 }
 
 // O(1) 
-bool IsEmpty(const Set existing_set) {
+bool IsEmptySet(const Set existing_set) {
+	// error handling 
+	if (existing_set == NULL) {
+		ErrorHandingFunction(DeallocatedSet);
+	}
 	return !existing_set->set_size;
 }
 
 // O(N) 
-void PrintAllElement(const Set existing_set) {
-	struct Node* tmpt = existing_set->header->next;
+void PrintAllElementSet(const Set existing_set) {
+	// error handling 
+	if (existing_set == NULL) {
+		ErrorHandingFunction(DeallocatedSet);
+	}
 
+	// traverse and print
+	struct Node* tmpt = existing_set->header->next;
 	while (tmpt != NULL) {
 
 		// conversion specification can modify 
-		printf("%s ", tmpt->item);
+		printf("%d ", tmpt->item);
 
 		// traverse 
 		tmpt = tmpt->next;
@@ -72,7 +85,7 @@ void PrintAllElement(const Set existing_set) {
 }
 
 // O(N) , N : element count of set 
-void AddElement(Set existing_set, const ItemType item_to_add) {
+void AddElementSet(Set existing_set, const ItemType item_to_add) {
 	// error handling 
 	if (existing_set == NULL) {
 		ErrorHandingFunction(DeallocatedSet);
@@ -128,7 +141,7 @@ void AddElement(Set existing_set, const ItemType item_to_add) {
 }
 
 // O(N) , N : element count of set 
-void RemoveElement(Set existing_set, const ItemType item_to_remove) {
+void RemoveElementSet(Set existing_set, const ItemType item_to_remove) {
 	// error handling 
 	if (existing_set == NULL) {
 		ErrorHandingFunction(DeallocatedSet);
@@ -176,9 +189,14 @@ void RemoveElement(Set existing_set, const ItemType item_to_remove) {
 }
 
 // O(N) , N : element count of set 
-bool IsElement(const Set existing_set, const ItemType item_to_check) {
+bool IsElementSet(const Set existing_set, const ItemType item_to_check) {
+	// error handling 
+	if (existing_set == NULL) {
+		ErrorHandingFunction(DeallocatedSet);
+	}
+
+	// traverse and check 
 	struct Node* tmpt = existing_set->header->next; 
-	
 	while (tmpt != NULL ) {
 		// check same 
 		if (existing_set->sort_criteria(tmpt->item, item_to_check) == 0) {
@@ -192,8 +210,11 @@ bool IsElement(const Set existing_set, const ItemType item_to_check) {
 }
 
 // O( A + B ) , A : element count of compare_set , B : element count of checked_set  
-bool IsSubset(const Set compare_set, const Set checked_set) {
+bool IsSubSet(const Set compare_set, const Set checked_set) {
 	// error check 
+	if (compare_set == NULL || checked_set == NULL) {
+		ErrorHandingFunction(DeallocatedSet);
+	}
 	if (compare_set->sort_criteria != checked_set->sort_criteria) {
 		ErrorHandingFunction(DifferentKindSet); 
 	}
@@ -234,6 +255,9 @@ Set GetUnionSet(const Set A, const Set B){
 	// error handling 
 	if (A == NULL || B == NULL) {
 		ErrorHandingFunction(DeallocatedSet);
+	}
+	if (A->sort_criteria != B->sort_criteria) {
+		ErrorHandingFunction(DifferentKindSet);
 	}
 
 	// make new set 
@@ -367,6 +391,9 @@ Set GetIntersectSet(const Set A, const Set B) {
 	if (A == NULL || B == NULL) {
 		ErrorHandingFunction(DeallocatedSet);
 	}
+	if (A->sort_criteria != B->sort_criteria) {
+		ErrorHandingFunction(DifferentKindSet);
+	}
 
 	// make new set 
 	Set get_set = InitSet(A->sort_criteria);
@@ -419,6 +446,9 @@ Set GetSubtractSet(const Set A, const Set B) {
 	// error handling 
 	if (A == NULL || B == NULL) {
 		ErrorHandingFunction(DeallocatedSet);
+	}
+	if (A->sort_criteria != B->sort_criteria) {
+		ErrorHandingFunction(DifferentKindSet);
 	}
 
 	// make new set 
@@ -496,10 +526,11 @@ Set GetSubtractSet(const Set A, const Set B) {
 
 // O(N) , N : element count of set 
 void RemoveSet(Set* remove_set_address) {
-	// error handling 
+	//error handling 
 	if (*remove_set_address == NULL) {
 		ErrorHandingFunction(DeallocatedSet);
 	}
+
 
 	// remove Nodes of set 
 	struct Node* tmp = (*remove_set_address)->header;
