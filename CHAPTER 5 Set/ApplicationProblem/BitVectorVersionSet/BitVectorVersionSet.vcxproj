@@ -22,8 +22,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{5e965c6a-b73f-4554-8b4d-4896762f9390}</ProjectGuid>
-    <RootNamespace>BitVector</RootNamespace>
+    <ProjectGuid>{d26c3c56-05f4-4391-92de-11329703d7de}</ProjectGuid>
+    <RootNamespace>BitVectorVersionSet</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
