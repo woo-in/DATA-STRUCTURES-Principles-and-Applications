@@ -8,13 +8,15 @@ struct SetType {
 	int set_size; 
 };
 
-enum ERROR_CODE { Memorylack, InvalidRank, FullList, EmptyList, DeallocatedList };
+enum ERROR_CODE { Memorylack, InvalidMaxSize, OutOfRangeItem, DifferentKindSet, DeallocatedSet };
+
+static void ErrorHandingFunction(enum ERROR_CODE code); 
 
 // O(N) (calloc) 
 Set InitSet(const int max_set_size) {
 	// error handling 
 	if (max_set_size <= 0) {
-		// ERROR_CODE INVALID INTEGER  
+		ErrorHandingFunction(InvalidMaxSize);
 	}
 
 	// malloc set structure 
@@ -41,7 +43,7 @@ Set InitSet(const int max_set_size) {
 int GetSizeSet(const Set existing_set) {
 	// error handling 
 	if (existing_set == NULL) {
-		// ErrorHandingFunction(DeallocatedSet);
+		ErrorHandingFunction(DeallocatedSet);
 	}
 	return existing_set->set_size; 
 }
@@ -50,7 +52,7 @@ int GetSizeSet(const Set existing_set) {
 bool IsEmptySet(const Set existing_set) {
 	// error handling 
 	if (existing_set == NULL) {
-		// ErrorHandingFunction(DeallocatedSet);
+		ErrorHandingFunction(DeallocatedSet);
 	}
 	return (!existing_set->set_size);
 }
@@ -59,7 +61,7 @@ bool IsEmptySet(const Set existing_set) {
 void PrintAllElementSet(const Set existing_set) {
 	// error handling 
 	if (existing_set == NULL) {
-		// ErrorHandingFunction(DeallocatedSet);
+		ErrorHandingFunction(DeallocatedSet);
 	}
 
 	// (traverse and print bit_vector index ==> set_element ) if (bit_vector value : true ==> set element ) while ( checked_element < set_size )   
@@ -71,6 +73,7 @@ void PrintAllElementSet(const Set existing_set) {
 		}
 	}
 
+	printf("\n");
 	return; 
 }
 
@@ -78,17 +81,18 @@ void PrintAllElementSet(const Set existing_set) {
 void AddElementSet(Set existing_set, const int item_to_add) {
 	// error handling 
 	if (existing_set == NULL) {
-		// ErrorHandingFunction(DeallocatedSet);
+		ErrorHandingFunction(DeallocatedSet);
 	}
 
 	// error handling 
-	if (item_to_add < 0 || item_to_add >= existing_set->set_size) {
-		// error : out of range can't mapping integer number ?  
+	if (item_to_add < 0 || item_to_add >= existing_set->max_set_size) {
+		ErrorHandingFunction(OutOfRangeItem);
 	}
 
 	// error handling 
 	if (existing_set->bit_vector[item_to_add]) {
-		// error : duplicate add 
+		// already exist 
+		printf("CAN'T ADD : ALREADY EXIST\n");
 	}
 
 	// false --> true 
@@ -104,17 +108,18 @@ void AddElementSet(Set existing_set, const int item_to_add) {
 void RemoveElementSet(Set existing_set, const int item_to_remove) {
 	// error handling 
 	if (existing_set == NULL) {
-		// ErrorHandingFunction(DeallocatedSet);
+		ErrorHandingFunction(DeallocatedSet);
 	}
 
 	// error handling 
-	if (item_to_remove < 0 || item_to_remove >= existing_set->set_size) {
-		// error : out of range can't mapping integer number ?  
+	if (item_to_remove < 0 || item_to_remove >= existing_set->max_set_size) {
+		ErrorHandingFunction(OutOfRangeItem);
 	}
 
 	// error handling 
 	if (!existing_set->bit_vector[item_to_remove]) {
-		// error : not in set  
+		// not exist 
+		printf("CAN'T REMOVE : NOT EXIST\n");
 	}
 
 	// true --> false  
@@ -130,12 +135,12 @@ void RemoveElementSet(Set existing_set, const int item_to_remove) {
 bool IsElementSet(const Set existing_set, const int item_to_check) {
 	// error handling 
 	if (existing_set == NULL) {
-		// ErrorHandingFunction(DeallocatedSet);
+		ErrorHandingFunction(DeallocatedSet);
 	}
 
 	// error handling 
-	if (item_to_check < 0 || item_to_check >= existing_set->set_size) {
-		// error : out of range can't mapping integer number ?  
+	if (item_to_check < 0 || item_to_check >= existing_set->max_set_size) {
+		ErrorHandingFunction(OutOfRangeItem);
 	}
 
 	// return true or false ( is element of set ? ) 
@@ -147,10 +152,10 @@ bool IsElementSet(const Set existing_set, const int item_to_check) {
 bool IsSubSet(const Set compare_set, const Set checked_set) {
 	// error check 
 	if (compare_set == NULL || checked_set == NULL) {
-		// ErrorHandingFunction(DeallocatedSet);
+		ErrorHandingFunction(DeallocatedSet);
 	}
 	if (compare_set->max_set_size != checked_set->max_set_size) {
-		// ErrorHandingFunction(DifferentKindSet); specify max_set_size 
+		ErrorHandingFunction(DifferentKindSet);
 	}
 
 	// traverse and check checked_set element is in compare_set while ( checked_element < set_size )   
@@ -173,10 +178,10 @@ bool IsSubSet(const Set compare_set, const Set checked_set) {
 Set GetUnionSet(const Set A, const Set B) {
 	// error check 
 	if (A == NULL || B == NULL) {
-		// ErrorHandingFunction(DeallocatedSet);
+		ErrorHandingFunction(DeallocatedSet);
 	}
 	if (A->max_set_size != B->max_set_size) {
-		// ErrorHandingFunction(DifferentKindSet); specify max_set_size 
+		ErrorHandingFunction(DifferentKindSet);  
 	}
 
 	// make new set
@@ -189,16 +194,18 @@ Set GetUnionSet(const Set A, const Set B) {
 			get_set->set_size++; 
 		}
 	}
+
+	return get_set;
 }
 
 // O(N) , N : max_set_size 
 Set GetIntersectSet(const Set A, const Set B) {
 	// error check 
 	if (A == NULL || B == NULL) {
-		// ErrorHandingFunction(DeallocatedSet);
+		ErrorHandingFunction(DeallocatedSet);
 	}
 	if (A->max_set_size != B->max_set_size) {
-		// ErrorHandingFunction(DifferentKindSet); specify max_set_size 
+		ErrorHandingFunction(DifferentKindSet); 
 	}
 
 	// make new set
@@ -211,16 +218,18 @@ Set GetIntersectSet(const Set A, const Set B) {
 			get_set->set_size++;
 		}
 	}
+
+	return get_set;
 }
 
 // O(N) , N : max_set_size 
 Set GetSubtractSet(const Set A, const Set B) {
 	// error check 
 	if (A == NULL || B == NULL) {
-		// ErrorHandingFunction(DeallocatedSet);
+		ErrorHandingFunction(DeallocatedSet);
 	}
 	if (A->max_set_size != B->max_set_size) {
-		// ErrorHandingFunction(DifferentKindSet); specify max_set_size 
+		ErrorHandingFunction(DifferentKindSet);  
 	}
 
 	// make new set
@@ -233,24 +242,19 @@ Set GetSubtractSet(const Set A, const Set B) {
 			get_set->set_size++;
 		}
 	}
+
+	return get_set;
 }
 
 // O(N) , N : max_set_size 
 void RemoveSet(Set* remove_set_address) {
 	//error handling 
 	if (*remove_set_address == NULL) {
-		// ErrorHandingFunction(DeallocatedSet);
+		ErrorHandingFunction(DeallocatedSet);
 	}
 
 	// remove BitVector storage array 
-	bool* remove_address = (*remove_set_address)->bit_vector;
-	bool* remove_address_next = remove_address + 1;
-	for (int i = 0; i < (*remove_set_address)->max_set_size - 2; i++) {
-		free(remove_address);
-		remove_address = remove_address_next; // reuse ( not dangling pointer )
-		remove_address_next++;
-	}
-	free(remove_address); // can't use remove_address ( dangling pointer problem ) 
+	free((*remove_set_address)->bit_vector);
 
 	// remove BitVector and store NULL for dangling pointer problem 
 	Set* deallocating_set_address = remove_set_address;
@@ -258,4 +262,20 @@ void RemoveSet(Set* remove_set_address) {
 	free(*deallocating_set_address);
 
 	return;
+}
+
+// O(1) 
+static void ErrorHandingFunction(enum ERROR_CODE code) {
+	switch (code)
+	{
+	case Memorylack: printf("ERROR : MEMORY IS NOT ENOUGH\n\n"); break;
+	case InvalidMaxSize: printf("ERROR : MAX SIZE IS INVALID\n\n"); break;
+	case OutOfRangeItem: printf("ERROR : ITEM IS OUT OF RANGE\n\n"); break;
+	case DifferentKindSet: printf("ERROR : SETS ARE DIFFERENT KIND\n\n"); break;
+	case DeallocatedSet: printf("ERROR : SET IS DEALLOCATED\n\n"); break;
+
+	default: printf("ERROR : ERROR CODE EXCEPTION\n\n"); break;
+	}
+
+	exit(0);
 }
