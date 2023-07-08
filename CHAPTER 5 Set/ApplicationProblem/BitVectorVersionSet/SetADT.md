@@ -47,13 +47,19 @@ Return subtract Set (A - B).
 **void RemoveSet(Set * remove_set_address)**  
 Remove Set.    
 
+# Exceptions :
 
+**Memory Lack**   
+InitSet 
 
-**DifferentKindSet**   
-IsSubset , GetUnionSet , GetIntersectSet , GetSubtractSet
+**InvalidMaxSize**   
+InitSet
 
+**OutOfRangeItem**   
+AddElementSet , RemoveElementSet , IsElementSet
 
+**DifferentKindSet**    
+IsSubSet , GetUnionSet , GetIntersectSet , GetSubtractSet
 
 **DeallocatedSet**   
-GetSizeSet , IsEmptySet , PrintAllElementSet , AddElementSet , RemoveElementSet , IsElementSet , IsSubSet , GetUnionSet , GetIntersectSet    
-GetSubtractSet , RemoveSet
+GetSizeSet , IsEmptySet , PrintAllElementSet , AddElementSet , RemoveElementSet , IsElementSet , IsSubSet , GetUnionSet , GetIntersectSet , GetSubtractSet , RemoveSet
