@@ -9,65 +9,43 @@ Successive individuals.
 **Stack InitStack()**   
 Return new Stack.    
 
-**int GetSizeList(List q_list)**   
-Return q_list size (the number of individuals). 
+**int GetSizeStack(const Stack current_stack)**   
+Return current_stack size (the number of individuals). 
 
-**bool IsEmptyList(List q_list)**   
-If q_list is empty , return true.     
-Otherwise , return false. 
+**bool IsEmptyStack(const Stack current_stack)**   
+If current_stack is empty , return true.     
+Otherwise , return false.     
 
-**ItemType GetRankElementList(List q_list, int rank)**   
-Return specific rank item of q_list.
+**ItemType GetTopElementStack(const Stack current_stack)**
+Return top element of current_stack.     
 
-**void ChangeRankElementList(List q_list, int rank, ItemType replace_item)**   
-Replace specific rank item of q_list to replace_item.  
+**void PushStack(Stack current_stack, ItemType pushing_element)**
+Push pushing_element to current_stack.      
 
-**void AddRankElementList(List q_list, int rank, ItemType add_item)**   
-Add add_item specific rank of q_list.    
-Rest of the part follows next.
+**ItemType PopStack(Stack current_stack)**     
+Pop element from current_stack.      
 
-**void AddFirstElementList(List q_list, ItemType add_item)**   
-Add add_item to first rank of q_list.    
-Rest of the part follows next.  
-
-**void AddLastElementList(List q_list, ItemType add_item)**   
-Add add_item to the end of present part of q_list.
-
-**ItemType RemoveRankElementList(List q_list, const int rank)**   
-Remove specific rank of q_list and return it.   
-Rest of the part will be pulled.
-
-**ItemType RemoveFirstElementList(List q_list)**   
-Remove first rank of q_list and return it.    
-Rest of the part will be pulled. 
-
-**ItemType RemoveLastElementList(List q_list)**   
-Remove last rank of q_list and return it.   
-
-**void RemoveList(List * remove_list_address)**  
-Remove List.  
+**void RemoveStack(Stack * remove_stack_address)**  
+Remove Stack.     
 
 # Exceptions :
 
 **Memory Lack**   
-InitList
+InitStack
 
-**Invalid Rank**   
-GetRankElementList , ChangeRankElementList , AddRankElementList , RemoveRankElementList
+**Full Stack**   
+PushStack
 
-**Full List**   
-AddRankElementList , AddFirstElementList , AddLastElementList
+**Empty Stack**   
+PopStack , GetTopElementStack
 
-**Empty List**   
-RemoveRankElementList , RemoveFirstElementList , RemoveLastElementList
-
-**Deallocated list**   
-GetSizeList , IsEmptyList , GetRankElementList , AddLastElementList , AddFirstElementList , AddRankElementList , ChangeRankElementList , RemoveLastElementList , RemoveFirstElementList , RemoveRankElementList , RemoveList
+**Deallocated Stack**   
+PushStack , PopStack , GetTopElementStack , GetSizeStack , IsEmptyStack , RemoveStack
 
 # besides : 
 
-**List.h**   
-User can modify max length of list and type of item.
+**Stack.h**   
+User can modify max length of list and type of item.     
 
+![화면 캡처 2023-07-10 221245](https://github.com/woo-in/DATA-STRUCTURES-Principles-and-Applications/assets/69314509/85d0befb-070c-4bbd-b30a-64260532007b)
 
-![githubn](https://github.com/woo-in/DATA-STRUCTURES-Principles-and-Applications/assets/69314509/a6f66287-8941-4d63-a255-7f0a2fd3f719)
