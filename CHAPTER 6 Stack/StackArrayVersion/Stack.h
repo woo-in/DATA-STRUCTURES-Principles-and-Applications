@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 /////////////////////////////////////////////////////////////////////////
-#define MAX_STACK_LENGTH 100 // user can modify max length of stack     //
+#define MAX_STACK_LENGTH 10 // user can modify max length of stack     //
 typedef int ItemType;// user can modify type of item                    // 
 ///////////////////////////////////////////////////////////////////////// 
 
