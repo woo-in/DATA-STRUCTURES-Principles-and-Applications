@@ -32,7 +32,7 @@ bool IsBalanced(const char* string_to_judge) {
 
 			c = PopStack(symbol_stack);
 			// false case 2 
-			if ((string_to_judge[i] == '(' && c != ')') || (string_to_judge[i] == '{' && c != '}') || (string_to_judge[i] == '[' && c != ']')) {
+			if ((string_to_judge[i] == ')' && c != '(') || (string_to_judge[i] == '}' && c != '{') || (string_to_judge[i] == ']' && c != '[')) {
 				// deacllocate stack and return 
 				RemoveStack(&symbol_stack);
 				return false;
