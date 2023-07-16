@@ -5,7 +5,7 @@
 int main() {
 
 
-	int a[] = { 60,30,40,10,20,30,50,40 ,1};
+	int a[] = { 60,30,40,10,20,30,50,40 };
 	int result[SIZE] = {0};
 
 	GetPeriodArray(a, result, SIZE);
