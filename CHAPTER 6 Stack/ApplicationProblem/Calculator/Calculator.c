@@ -1,23 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <string.h>
 #include "Calculator.h"
 #include "Stack.h"
 
 enum OPERATOR { Plus = INT_MIN, Minus = INT_MIN + 1, Multiplication = INT_MAX, Division = INT_MAX - 1 };
 enum RANKING_CODE { Rank_1, Rank_2, Rank_3 };
-enum ERROR_CODE { InvalidExpression, InvalidOperator, InvalidRange };
+enum ERROR_CODE { InvalidExpression, InvalidOperator, InvalidRange, ExpressionLength };
 
+static int ConvertInfixExpression(const char* infix_expression, int* postfix_expression, const int infix_expression_element_count);
 static int ConvertOperatorToInteger(const char convert_operator);
 static bool IsTopElementEqualOrHigherPrecedence(const Stack operator_stack, const char now_operator);
-// tmp not static for test 
-int ConvertInfixExpression(const char* infix_expression, int * postfix_expression, const int infix_expression_element_count);
 
-//int EvaluationPostfixExpression(int* postfix_expression, const int postfix_expression_element_count);
+static int EvaluatePostfixExpression(const int* postfix_expression, const int postfix_expression_element_count);
+
+int Calculator(const char* user_expression); 
 
 static void ErrorHandingFunction(enum ERROR_CODE code); 
 
-int ConvertInfixExpression(const char* infix_expression, int* postfix_expression, const int infix_expression_element_count) {
+static int ConvertInfixExpression(const char* infix_expression, int* postfix_expression, const int infix_expression_element_count) {
 
 	// prepare algorithm 
 	int postfix_expression_element_count = 0;
@@ -31,7 +33,7 @@ int ConvertInfixExpression(const char* infix_expression, int* postfix_expression
 
 	// algorithm ------------------------------------------------------------------------------------
 
-	// check start with unary -
+	// check start with unary -------------------------------------------
 
 	while ((i < infix_expression_element_count) && (infix_expression[i] == ' ')) {
 		i++;
@@ -54,6 +56,8 @@ int ConvertInfixExpression(const char* infix_expression, int* postfix_expression
 		i++; // renew index of infix expression
 	}
 	
+	//--------------------------------------------------------------------
+
 	// traverse all element of infix expression
 	while(i < infix_expression_element_count) {
 		switch (infix_expression[i]) {
@@ -65,7 +69,7 @@ int ConvertInfixExpression(const char* infix_expression, int* postfix_expression
 			// renew index of infix expression
 			i++;
 
-			// check start with unary -
+			// check start with unary -------------------------------------------
 
 			while (i < infix_expression_element_count && infix_expression[i] == ' ')
 				i++; // renew index of infix expression
@@ -87,6 +91,8 @@ int ConvertInfixExpression(const char* infix_expression, int* postfix_expression
 				// renew index of infix expression
 				i++;
 			}
+
+			//--------------------------------------------------------------------
 
 			break;
 
@@ -175,32 +181,6 @@ int ConvertInfixExpression(const char* infix_expression, int* postfix_expression
 	return postfix_expression_element_count;
 }
 
-/*
-
-static void EvaluationPostfixExpression(const char* postfix_expression, const int postfix_expression_element_count) {
-	
-	// prepare algorithm 
-	Stack operand_stack = InitStack();
-	int 
-
-	// algorithm 
-	for (int i = 0; i < postfix_expression_element_count; i++) {
-		// traverse all postfix expression element 
-		switch (postfix_expression[i]) {
-
-			// if operator ==> pop operand twice --> evaluate --> push 
-		case '+':
-
-			
-
-
-		default:
-			break;
-		}
-	}
-}
-*/ 
-
 static int ConvertOperatorToInteger(const char convert_operator) {
 	// INT_MIN : + , INT_MIN + 1 : - , INT_MAX : * , INT_MAX - 1 : / 
 
@@ -225,8 +205,6 @@ static int ConvertOperatorToInteger(const char convert_operator) {
 		// check stack !! 
 	}
 }
-
-
 
 static bool IsTopElementEqualOrHigherPrecedence(const Stack operator_stack, const char now_operator) {
 	// empty stack ==> false 
@@ -259,6 +237,92 @@ static bool IsTopElementEqualOrHigherPrecedence(const Stack operator_stack, cons
 	return (top_stack_operator_rank >= now_operator_rank);
 }
 
+static int EvaluatePostfixExpression(const int* postfix_expression, const int postfix_expression_element_count){
+
+	// prepare algorithm 
+	Stack operand_stack = InitStack();
+	int first_element = 0; 
+	int second_element = 0; 
+	int result = 0; 
+
+	for (int i = 0; i < postfix_expression_element_count; i++) {
+		// traverse all postfix_expression 
+
+		switch (postfix_expression[i]) {
+
+			// operator ==> pop 2 element and evaluate 
+		case Plus:
+			if (GetSizeStack(operand_stack) < 2) {
+				RemoveStack(&operand_stack);
+				ErrorHandingFunction(InvalidExpression);
+			}
+			second_element = PopStack(operand_stack);
+			first_element = PopStack(operand_stack);
+			PushStack(operand_stack, first_element + second_element);
+			break;
+
+		case Minus:
+			if (GetSizeStack(operand_stack) < 2) {
+				RemoveStack(&operand_stack);
+				ErrorHandingFunction(InvalidExpression);
+			}
+			second_element = PopStack(operand_stack);
+			first_element = PopStack(operand_stack);
+			PushStack(operand_stack, first_element - second_element);
+			break;
+
+		case Multiplication:
+			if (GetSizeStack(operand_stack) < 2) {
+				RemoveStack(&operand_stack);
+				ErrorHandingFunction(InvalidExpression);
+			}
+			second_element = PopStack(operand_stack);
+			first_element = PopStack(operand_stack);
+			PushStack(operand_stack, first_element * second_element);
+			break;
+
+		case Division:
+			if (GetSizeStack(operand_stack) < 2) {
+				RemoveStack(&operand_stack);
+				ErrorHandingFunction(InvalidExpression);
+			}
+			second_element = PopStack(operand_stack);
+			first_element = PopStack(operand_stack);
+			PushStack(operand_stack, first_element / second_element);
+			break;
+
+			// operand ==> push stack 
+		default:
+			PushStack(operand_stack, postfix_expression[i]);
+
+		}
+	}
+
+	// check 1 result and return 
+	if (GetSizeStack(operand_stack) != 1) {
+		RemoveStack(&operand_stack);
+		ErrorHandingFunction(InvalidExpression);
+	}
+
+	result = PopStack(operand_stack);
+	
+	RemoveStack(&operand_stack);
+
+	return result; 
+
+}
+
+int Calculator(const char* user_expression) {
+
+	int postfix_expression[5000]; // assume that expression is shorter than 5000 
+
+	int postfix_expression_element_count = ConvertInfixExpression(user_expression, postfix_expression, strlen(user_expression));
+
+	if (postfix_expression_element_count > 5000)
+		ErrorHandingFunction(ExpressionLength);
+
+	return EvaluatePostfixExpression(postfix_expression, postfix_expression_element_count);
+}
 
 
 // O(1) 
@@ -268,6 +332,7 @@ static void ErrorHandingFunction(enum ERROR_CODE code) {
 	case InvalidExpression: printf("ERROR : EXPRESSION IS INVALID\n\n"); break;
 	case InvalidOperator: printf("ERROR : OPERATOR IS INVALID\n\n"); break; 
 	case InvalidRange: printf("ERROR : OUT OF RANGE NUMBER\n\n"); break;
+	case ExpressionLength: printf("ERROR : EXPRESSION LENGTH IS TOO LONG\n\n"); break; 
 	default: printf("ERROR : ERROR CODE EXCEPTION\n\n"); break;
 	}
 

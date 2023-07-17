@@ -5,14 +5,9 @@
 int main() {
 
 	char stringK[500];
-	int after_convert[500];
-
 	
-		scanf("%[^\n]", stringK);
-		int k = ConvertInfixExpression(stringK, after_convert, strlen(stringK));
-		for (int i = 0; i < k; i++) {
-			printf("%d\n", after_convert[i]);
-		}
+	scanf("%[^\n]", stringK);
+	printf("%d", Calculator(stringK));
 		
 	
 
