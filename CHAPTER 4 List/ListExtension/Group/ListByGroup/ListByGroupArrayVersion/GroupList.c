@@ -12,7 +12,7 @@ enum ERROR_CODE { Memorylack, DeallocatedList , InvalidGroup };
 
 // O(N) , N : setted MAX_GROUP_LENGTH 
 GroupList InitGroupList() {
-	GroupList init_list = malloc(sizeof(GroupList*));
+	GroupList init_list = malloc(sizeof(*init_list));	
 	if (init_list == NULL) {
 		ErrorHandingFunction(Memorylack);
 	}
@@ -90,11 +90,11 @@ void RemoveGroupList(GroupList* remove_group_list_address) {
 		RemoveList(&(*remove_group_list_address)->group[i]);
 	}
 
-	GroupList* deallocting_list_address = remove_group_list_address;
+	GroupList deallocting_list_address = *remove_group_list_address;
 
 	(*remove_group_list_address) = NULL;
 
-	free(*deallocting_list_address);
+	free(deallocting_list_address);
 
 	return;
 }

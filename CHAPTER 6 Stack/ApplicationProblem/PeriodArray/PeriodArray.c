@@ -44,6 +44,8 @@ void GetPeriodArray(const int* input_array, int* result_array, const int array_e
 		// push now index 
 	}
 
+	RemoveStack(&calculator_stack);
+
 	return; 
 }
 

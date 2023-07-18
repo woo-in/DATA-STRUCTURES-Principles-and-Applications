@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include "MultipleStack.h"
@@ -35,13 +36,16 @@ MultipleStack InitMultipleStack(const int total_stack_length, const int stack_co
 	}
 
 	// allocate base index array 
-	int* base_index_array = malloc(sizeof(*base_index_array) * stack_count + 1);
+	int* base_index_array = malloc(sizeof(*base_index_array) * (stack_count + 1));
 	if (base_index_array == NULL) {
 		ErrorHandingFunction(Memorylack);
 	}
 
 	// allocate top index array 
 	int* top_index_array = malloc(sizeof(*top_index_array) * stack_count);
+	if (top_index_array == NULL) {
+		ErrorHandingFunction(Memorylack);
+	}
 
 	// init base , top index array 
 	int one_stack_length = total_stack_length / stack_count; 
@@ -49,6 +53,7 @@ MultipleStack InitMultipleStack(const int total_stack_length, const int stack_co
 		base_index_array[i] = one_stack_length * i - 1; 
 		top_index_array[i] = base_index_array[i];  
 	}
+	base_index_array[stack_count] = one_stack_length * stack_count - 1; // last element of base_index_array 
 
 	// connect allocated and return 
 	init_multiple_stack->item_array = init_item_array; 
@@ -134,7 +139,7 @@ ItemType GetTopElementMultipleStack(const MultipleStack current_multiple_stack, 
 }
 
 // O(1)
-void PushMultipleStack(const MultipleStack current_multiple_stack, const int current_multiple_stack_order, const ItemType pushing_element) {
+void PushMultipleStack(MultipleStack current_multiple_stack, const int current_multiple_stack_order, const ItemType pushing_element) {
 	// error handling 
 	if (current_multiple_stack == NULL) {
 		ErrorHandingFunction(DeallocatedMultipleStack);
@@ -161,7 +166,7 @@ void PushMultipleStack(const MultipleStack current_multiple_stack, const int cur
 }
 
 // O(1)
-ItemType PopMultipleStack(const MultipleStack current_multiple_stack, const int current_multiple_stack_order) {
+ItemType PopMultipleStack(MultipleStack current_multiple_stack, const int current_multiple_stack_order) {
 	// error handling 
 	if (current_multiple_stack == NULL) {
 		ErrorHandingFunction(DeallocatedMultipleStack);
@@ -195,22 +200,37 @@ void RemoveMultipleStack(MultipleStack* remove_multiple_stack_address) {
 		ErrorHandingFunction(DeallocatedMultipleStack);
 	}
 
+	/*
 	// free connected 
 	free((*remove_multiple_stack_address)->base_index_array);
 	free((*remove_multiple_stack_address)->top_index_array); 
 	free((*remove_multiple_stack_address)->item_array); 
+	*/
 
 	// free MultipleStack 
-	MultipleStack* deallocating_address = remove_multiple_stack_address;
+	MultipleStack deallocating_address = *remove_multiple_stack_address;
 
 	// NULL for dangling pointer problem 
 	(*remove_multiple_stack_address) = NULL;
 
 	// deallocate 
-	free(*deallocating_address);
+	free(deallocating_address);
 
 	return;
 }
+
+void TmptPrint(const MultipleStack k) {
+
+	for (int i = 0; i < k->stack_count; i++) {
+		for (int j = k->base_index_array[i] + 1; j <= k->top_index_array[i]; j++) {
+			printf("-%d-", k->item_array[j]);
+		}
+		printf("\n");
+	}
+
+	return; 
+}
+
 
 // O(1) 
 static void ErrorHandingFunction(enum ERROR_CODE code) {
@@ -218,10 +238,10 @@ static void ErrorHandingFunction(enum ERROR_CODE code) {
 	{
 	case Memorylack: printf("ERROR : MEMORY IS NOT ENOUGH\n\n"); break;
 	case InvalidLength : printf("ERROR : INVALID LENGTH\n\n"); break;
-	case InvalidMultipleStackOrder: printf("ERROR : INVALID MULTIPLE STACK ORDER\n\n");
-	case EmptyMultipleStack: printf("ERROR : EMPTY MULTIPLE STACK\n\n");
-	case FullMultipleStack: printf("ERROR : FULL MULTIPLE STACK\n\n");
-	case DeallocatedMultipleStack: printf("ERROR : MULTIPLESTACK IS DEALLOCATED\n\n"); break;
+	case InvalidMultipleStackOrder: printf("ERROR : INVALID MULTIPLE STACK ORDER\n\n"); break; 
+	case EmptyMultipleStack: printf("ERROR : EMPTY MULTIPLE STACK\n\n"); break; 
+	case FullMultipleStack: printf("ERROR : FULL MULTIPLE STACK\n\n"); break; 
+	case DeallocatedMultipleStack: printf("ERROR : MULTIPLE STACK IS DEALLOCATED\n\n"); break;
 
 	default: printf("ERROR : ERROR CODE EXCEPTION\n\n"); break;
 	}

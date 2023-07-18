@@ -543,9 +543,9 @@ void RemoveSet(Set* remove_set_address) {
 	free(tmp);
 
 	// remove set and store NULL for dangling pointer problem 
-	Set* deallocating_set_address = remove_set_address;
+	Set deallocating_set_address = *remove_set_address;
 	(*remove_set_address) = NULL;
-	free(*deallocating_set_address);
+	free(deallocating_set_address);
 
 	return; 
 }

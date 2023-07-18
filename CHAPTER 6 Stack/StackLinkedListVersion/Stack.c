@@ -155,13 +155,13 @@ void RemoveStack(Stack* remove_stack_address) {
 		free(tmp);
 	}
 
-	Stack* deallocating_address = remove_stack_address;
+	Stack deallocating_address = *remove_stack_address;
 
 	// NULL for dangling pointer problem 
 	(*remove_stack_address) = NULL;
 
 	// deallocate Stack 
-	free(*deallocating_address);
+	free(deallocating_address);
 
 	return;
 }

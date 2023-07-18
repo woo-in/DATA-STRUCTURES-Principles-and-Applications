@@ -168,11 +168,11 @@ void RemoveList(List* remove_list_address) {
 		ErrorHandingFunction(DeallocatedList);
 	}
 
-	List* deallocating_address = remove_list_address;
+	List deallocating_address = *remove_list_address;
 	// allocate NULL ==> for dangling pointer problem 
 	(*remove_list_address) = NULL;
 	// deallocate 
-	free(*remove_list_address);
+	free(deallocating_address);
 
 	return;
 }

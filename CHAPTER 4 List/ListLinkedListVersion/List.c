@@ -311,11 +311,11 @@ void RemoveList(List* remove_list_address) {
 	}
 	free(tmp);
 
-	List* deallocating_list_address = remove_list_address;
+	List deallocating_list_address = *remove_list_address;
 
 	(*remove_list_address) = NULL;
 
-	free(*deallocating_list_address);
+	free(deallocating_list_address);
 
 	return;
 }
