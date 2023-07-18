@@ -200,12 +200,12 @@ void RemoveMultipleStack(MultipleStack* remove_multiple_stack_address) {
 		ErrorHandingFunction(DeallocatedMultipleStack);
 	}
 
-	/*
+	
 	// free connected 
 	free((*remove_multiple_stack_address)->base_index_array);
 	free((*remove_multiple_stack_address)->top_index_array); 
 	free((*remove_multiple_stack_address)->item_array); 
-	*/
+	
 
 	// free MultipleStack 
 	MultipleStack deallocating_address = *remove_multiple_stack_address;
@@ -218,19 +218,6 @@ void RemoveMultipleStack(MultipleStack* remove_multiple_stack_address) {
 
 	return;
 }
-
-void TmptPrint(const MultipleStack k) {
-
-	for (int i = 0; i < k->stack_count; i++) {
-		for (int j = k->base_index_array[i] + 1; j <= k->top_index_array[i]; j++) {
-			printf("-%d-", k->item_array[j]);
-		}
-		printf("\n");
-	}
-
-	return; 
-}
-
 
 // O(1) 
 static void ErrorHandingFunction(enum ERROR_CODE code) {

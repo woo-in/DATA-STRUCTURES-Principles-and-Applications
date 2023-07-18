@@ -7,7 +7,7 @@ int main() {
 	
 	RemoveMultipleStack(&k);
 
-	//PushMultipleStack(k, 1, 2);
+	PushMultipleStack(k, 1, 2);
 	
 
 

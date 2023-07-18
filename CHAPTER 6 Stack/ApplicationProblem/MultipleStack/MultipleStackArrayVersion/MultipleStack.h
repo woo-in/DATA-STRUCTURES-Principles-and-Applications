@@ -19,6 +19,4 @@ ItemType PopMultipleStack(const MultipleStack current_multiple_stack, const int 
 
 void RemoveMultipleStack(MultipleStack* remove_multiple_stack_address);
 
-void TmptPrint(const MultipleStack k); 
-
 #endif 
