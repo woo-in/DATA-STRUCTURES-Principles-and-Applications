@@ -161,7 +161,7 @@ void RemoveStack(Stack* remove_stack_address) {
 	(*remove_stack_address) = NULL;
 
 	// deallocate Stack 
-	free(*remove_stack_address);
+	free(*deallocating_address);
 
 	return;
 }
