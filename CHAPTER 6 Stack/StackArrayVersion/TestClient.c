@@ -35,7 +35,7 @@ int main() {
 
 	RemoveStack(&s1);
 
-	PushStack(s1, 1);
+	
 
 	return 0; 
 }

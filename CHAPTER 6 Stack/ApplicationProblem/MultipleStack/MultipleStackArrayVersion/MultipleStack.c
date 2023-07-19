@@ -14,6 +14,7 @@ struct MultipleStackType {
 
 enum ERROR_CODE { Memorylack, InvalidLength, InvalidMultipleStackOrder, EmptyMultipleStack, FullMultipleStack, DeallocatedMultipleStack };
 
+static void FullMultipleStackSolution(MultipleStack current_multiple_stack, const int full_multiple_stack_index);
 static void ErrorHandingFunction(enum ERROR_CODE code); 
 
 // O(N) 
@@ -153,7 +154,8 @@ void PushMultipleStack(MultipleStack current_multiple_stack, const int current_m
 
 	// full stack ==> error
 	if (current_multiple_stack->top_index_array[current_multiple_stack_index] == current_multiple_stack->base_index_array[current_multiple_stack_index + 1]){
-		ErrorHandingFunction(FullMultipleStack);
+		// ErrorHandingFunction(FullMultipleStack); // --> floating base soulution 
+		FullMultipleStackSolution(current_multiple_stack, current_multiple_stack_index);
 	}
 
 	// top index increment 
@@ -217,6 +219,75 @@ void RemoveMultipleStack(MultipleStack* remove_multiple_stack_address) {
 	free(deallocating_address);
 
 	return;
+}
+
+static void FullMultipleStackSolution(MultipleStack current_multiple_stack, const int full_multiple_stack_index) {
+
+	// search empty space (left --> right)
+
+	int multiple_stack_index = 0; 
+	int element_index = 0; 
+	int k = 0;
+
+	// left ~ 
+	for (multiple_stack_index = full_multiple_stack_index - 1; multiple_stack_index >= 0; multiple_stack_index--) {
+		// ( full_multiple_stack_index - 1 ) ~ 0 
+		if (current_multiple_stack->top_index_array[multiple_stack_index] != current_multiple_stack->base_index_array[multiple_stack_index + 1]) {
+			// in multiple_stack_index stack ==> not full  
+
+			// element pull  empty_element_index ==> when not full , base[msi+1]  ~~~ full_element_index ==> when occur full , top[fmsi] 
+			for (element_index = current_multiple_stack->base_index_array[multiple_stack_index+1] ; element_index < current_multiple_stack->top_index_array[full_multiple_stack_index] ; element_index++) {
+				current_multiple_stack->item_array[element_index] = current_multiple_stack->item_array[element_index + 1];
+			}
+			
+			// base  , top pull 
+			for (k = multiple_stack_index + 1; k <= full_multiple_stack_index ; k++) {
+				current_multiple_stack->base_index_array[k]--; 
+				current_multiple_stack->top_index_array[k]--; 
+			}
+
+			return; 
+		}
+	}
+
+	// right ~ 
+	for (multiple_stack_index = full_multiple_stack_index + 1; multiple_stack_index < current_multiple_stack->stack_count; multiple_stack_index++) {
+		// (full_multiple_stack_index + 1 ) ~ last 
+		if (current_multiple_stack->top_index_array[multiple_stack_index] != current_multiple_stack->base_index_array[multiple_stack_index + 1]) {
+			// in multiple_stack_index stack ==> not full  
+
+			// element pull empty_element_index - 1 ==> top[msi] ~~~ full_element_index ==> when occur full , top[fmsi] 
+			for (element_index = current_multiple_stack->top_index_array[multiple_stack_index]; element_index >= current_multiple_stack->top_index_array[full_multiple_stack_index]; element_index--) {
+				current_multiple_stack->item_array[element_index + 1] = current_multiple_stack->item_array[element_index];
+			}
+
+			// base , top pull 
+			for (k = multiple_stack_index; k > full_multiple_stack_index; k--) {
+				current_multiple_stack->base_index_array[k]++;
+				current_multiple_stack->top_index_array[k]++;
+			}
+
+			return; 
+		}
+	}
+
+	ErrorHandingFunction(FullMultipleStack);
+}
+
+
+void STATUS(const MultipleStack a) {
+
+	for (int i = 0; i < a->stack_count + 1; i++) {
+		printf(" %d ", a->base_index_array[i]);
+	}
+	printf("\n");
+	for (int i = 0; i < a->stack_count; i++) {
+		printf(" %d ", a->top_index_array[i]);
+	}
+	printf("\n");
+	for (int i = 0; i < a->total_stack_length; i++) {
+		printf(" %d ", a->item_array[i]);
+	}
 }
 
 // O(1) 
