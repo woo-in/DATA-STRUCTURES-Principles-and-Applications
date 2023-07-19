@@ -221,8 +221,10 @@ void RemoveMultipleStack(MultipleStack* remove_multiple_stack_address) {
 	return;
 }
 
+// O(N+M) , N : stack_count , M : total_stack_length  
 static void FullMultipleStackSolution(MultipleStack current_multiple_stack, const int full_multiple_stack_index) {
 
+	// to understand imaging top / base graph   
 	// search empty space (left --> right)
 
 	int multiple_stack_index = 0; 
@@ -256,7 +258,7 @@ static void FullMultipleStackSolution(MultipleStack current_multiple_stack, cons
 		if (current_multiple_stack->top_index_array[multiple_stack_index] != current_multiple_stack->base_index_array[multiple_stack_index + 1]) {
 			// in multiple_stack_index stack ==> not full  
 
-			// element pull empty_element_index - 1 ==> top[msi] ~~~ full_element_index ==> when occur full , top[fmsi] 
+			// element pull empty_element_index - 1 ==> when not full , top[msi] ~~~ full_element_index ==> when occur full , top[fmsi] 
 			for (element_index = current_multiple_stack->top_index_array[multiple_stack_index]; element_index >= current_multiple_stack->top_index_array[full_multiple_stack_index]; element_index--) {
 				current_multiple_stack->item_array[element_index + 1] = current_multiple_stack->item_array[element_index];
 			}
@@ -274,22 +276,6 @@ static void FullMultipleStackSolution(MultipleStack current_multiple_stack, cons
 	ErrorHandingFunction(FullMultipleStack);
 }
 
-
-void STATUS(const MultipleStack a) {
-
-	for (int i = 0; i < a->stack_count + 1; i++) {
-		printf(" %d ", a->base_index_array[i]);
-	}
-	printf("\n");
-	for (int i = 0; i < a->stack_count; i++) {
-		printf(" %d ", a->top_index_array[i]);
-	}
-	printf("\n");
-	for (int i = 0; i < a->total_stack_length; i++) {
-		printf(" %d ", a->item_array[i]);
-	}
-}
-
 // O(1) 
 static void ErrorHandingFunction(enum ERROR_CODE code) {
 	switch (code)
@@ -303,6 +289,8 @@ static void ErrorHandingFunction(enum ERROR_CODE code) {
 
 	default: printf("ERROR : ERROR CODE EXCEPTION\n\n"); break;
 	}
+
+	// memory deallocate ? 
 
 	exit(0);
 }
