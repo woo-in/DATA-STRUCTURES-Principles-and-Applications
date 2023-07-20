@@ -13,7 +13,7 @@ Return new MultipleStack.
 If current_multiple_stack's specific order stack is empty , return true.     
 Otherwise , return false.     
 
-**ItemType GetTopElementMultipleStack(MultipleStack current_multiple_stack, const int current_multiple_stack_order)**
+**ItemType GetTopElementMultipleStack(MultipleStack current_multiple_stack, const int current_multiple_stack_order)**      
 Return top element of current_multiple_stack's specific order stack.      
 
 **void PushMultipleStack(MultipleStack current_multiple_stack, const int current_multiple_stack_order, const ItemType pushing_element)**       
