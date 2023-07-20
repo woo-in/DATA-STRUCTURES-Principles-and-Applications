@@ -39,7 +39,7 @@ IsEmptyMultipleStack , GetTopElementMultipleStack , PushMultipleStack , PopMulti
 **EmptyMultipleStack**   
 GetTopElementMultipleStack , PopMultipleStack     
 
-**DeallocatedMultipleStack**
+**DeallocatedMultipleStack**      
 IsEmptyMultipleStack , GetTopElementMultipleStack , PushMultipleStack , PopMultipleStack , RemoveMultipleStack       
 
 # besides : 
