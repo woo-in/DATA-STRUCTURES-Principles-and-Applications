@@ -27,17 +27,5 @@ int main() {
 	RemoveQueue(&k);
 
 	EnQueue(k, 1);
-
-
-
-
-	
-
-
-
-
-
-
-
 	return 0;
 }
