@@ -16,10 +16,10 @@ Return current_queue size (the number of individuals).
 If current_queue is empty , return true.     
 Otherwise , return false.     
 
-**ItemType GetFrontItem(Queue current_queue)**
+**ItemType GetFrontItem(Queue current_queue)**         
 Return front element of current_queue.     
 
-**void EnQueue(Queue current_queue, const ItemType inserting_item)**
+**void EnQueue(Queue current_queue, const ItemType inserting_item)**         
 Push inserting_item to current_queue.       
 
 **ItemType DeQueue(Queue current_queue)**     
