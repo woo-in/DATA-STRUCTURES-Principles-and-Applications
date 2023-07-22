@@ -40,7 +40,7 @@ bool IsEmptyQueue(Queue current_queue) {
 	return (IsEmptyStack(current_queue->dequeue_stack) && IsEmptyStack(current_queue->enqueue_stack));
 }
 
-// O(?) 
+// O(1) , amortized running time  
 ItemType GetFrontItem(Queue current_queue) {
 	// handle error ( empty queue check ) 
 	if (current_queue == NULL) {
@@ -75,7 +75,7 @@ void EnQueue(Queue current_queue, const ItemType inserting_item) {
 	return; 
 }
 
-// O(?) 
+// O(1) , amortized running time  
 ItemType DeQueue(Queue current_queue) {
 	// handle error ( empty queue check ) 
 	if (current_queue == NULL) {
