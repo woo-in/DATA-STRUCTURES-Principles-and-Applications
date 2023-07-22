@@ -16,11 +16,5 @@ int main() {
 	printf("%d %d %d", GetSizeDeque(k), GetFrontItem(k), GetRearItem(k));
 
 	// 7 6 5 4 3 2  
-
-
-
-
-
-
 	return 0; 
 }
