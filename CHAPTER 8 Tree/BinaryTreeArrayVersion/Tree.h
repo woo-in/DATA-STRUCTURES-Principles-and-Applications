@@ -7,23 +7,27 @@ typedef int ItemType;
 
 typedef struct TreeType* Tree;
 
-//
+Tree InitializeTree(const int max_tree_len, const int root_node_item);
+void RemoveTree(Tree* removing_tree);
 
-Tree InitDeque();
+bool IsEmptyTree(Tree current_tree);
+int GetSizeOfTree(Tree current_tree);
 
-int GetSizeDeque(Deque current_deque);
-bool IsEmptyDeque(Deque current_deque);
 
-ItemType GetFrontItem(Deque current_deque);
-ItemType GetRearItem(Deque current_deque);
+ItemType GetRootNodeItemOfTree(Tree current_tree);
+ItemType GetParentNodeItemInTree(Tree current_tree, const int node_index);
+ItemType GetLeftChildrenNodeItemInTree(Tree current_tree, const int node_index);
+ItemType GetRightChildrenNodeItemInTree(Tree current_tree, const int node_index);
+ItemType GetNodeItemInTree(Tree current_tree, const int node_index);
 
-void InsertRearDeque(Deque current_deque, const ItemType inserting_item);
-ItemType DeleteRearDeque(Deque current_deque);
-void InsertFrontDeque(Deque current_deque, const ItemType inserting_item);
-ItemType DeleteFrontDeque(Deque current_deque);
+bool IsInternalNodeInTree(Tree current_tree, const int node_index);
+bool IsExternalNodeInTree(Tree current_tree, const int node_index);
 
-void RemoveDeque(Deque* removing_deque);
 
-//
+void SetLeftChildNodeInTree(Tree current_tree, const int node_index, const ItemType left_child_item);
+void SetRightChildNodeInTree(Tree current_tree, const int node_index, const ItemType right_child_item);
+void SwapNodeItemInTree(Tree current_tree, const int node_index_swap1, const int node_index_swap2);
+ItemType RemoveExternalNodeInTree(Tree current_tree, const int node_index);
+
 
 #endif
