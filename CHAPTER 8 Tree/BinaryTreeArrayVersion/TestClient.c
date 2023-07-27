@@ -3,30 +3,20 @@
 
 int main() {
 
-	Tree t = InitializeTree(7, 100);
+	Tree t = InitializeTree(300, 100);
 
 
 	SetLeftChildNodeInTree(t, 1, 200);
 	SetRightChildNodeInTree(t, 1, 300);
 
-	SetLeftChildNodeInTree(t, 2, 400);
+	SetLeftChildNodeInTree(t, 2, 100000);
 
 	SetLeftChildNodeInTree(t, 3, 600);
 	SetRightChildNodeInTree(t, 3, 700);
 
-
-	RemoveExternalNodeInTree(t, 6);
-	RemoveExternalNodeInTree(t, 7);
-	RemoveExternalNodeInTree(t, 3);
-
-	RemoveExternalNodeInTree(t, 4);
-	//RemoveExternalNodeInTree(t, 2);
+	SetLeftChildNodeInTree(t, 4, 800);
 
 
-	if (IsInternalNodeInTree(t, 1))
-		printf("yes\n");
-
-
-	RemoveTree(&t);	
+	RemoveTree(&t);
 	return 0;
 }

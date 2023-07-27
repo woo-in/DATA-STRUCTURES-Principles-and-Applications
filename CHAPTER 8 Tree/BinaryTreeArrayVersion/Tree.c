@@ -60,11 +60,8 @@ bool IsEmptyTree(Tree current_tree) {
 	return (current_tree->tree_array_address[1] == '#');
 }
 
-// rewrite ///////////////////////////////////////////////////////////////////////////////
-
-// 오일러 투어로 최적화 ?  
-// O(N) , N : size of current_tree
-// O(1) , size 변수둔다면 ? 
+// O(N) , N : size of current_tree  3 * O(N) 
+// It can be Euler Tour... ?  
 int GetSizeOfTree(Tree current_tree) {
 	// error handling 
 	if (current_tree == NULL) {
@@ -72,6 +69,7 @@ int GetSizeOfTree(Tree current_tree) {
 	}
 	return GetSizeOfSubTree(current_tree, 1);
 }
+
 static int GetSizeOfSubTree(Tree current_tree, const int sub_tree_root_index) {
 	// error handling 
 	if (current_tree == NULL) {
@@ -80,18 +78,36 @@ static int GetSizeOfSubTree(Tree current_tree, const int sub_tree_root_index) {
 	if (sub_tree_root_index < 1 || sub_tree_root_index > current_tree->max_tree_len) {
 		ErrorHandingFunction(InvalidIndex);
 	}
+	if (current_tree->tree_array_address[sub_tree_root_index] == '#') {
+		ErrorHandingFunction(EmptyNode);
+	}
 
-	// check child size (if not exist , size = 0 ) ( if child '#'(NULL) , size = 1 ) 
-	int left_child_size = current_tree->tree_array_address[sub_tree_root_index * 2] == '#' ? 1 : GetSizeOfSubTree(current_tree, sub_tree_root_index * 2);
-	int right_child_size = current_tree->tree_array_address[sub_tree_root_index * 2 + 1] == '#' ? 1 : GetSizeOfSubTree(current_tree, sub_tree_root_index * 2 + 1);
 
-	// what if not exist left or right child ? 
+	// pre of traverse  
+	int size_of_sub_tree = 1; 
+	
 
+	// traverse left_child (if exist) 
+	int left_child_index = sub_tree_root_index * 2;
+	if (left_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[left_child_index] != '#') {
+		// left child exist 
+		size_of_sub_tree += GetSizeOfSubTree(current_tree, left_child_index);
+	}
+
+	// in of traverse 
+
+	// traverse right_child (if exist)
+	int right_child_index = sub_tree_root_index * 2 + 1;
+	if (right_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[right_child_index] != '#') {
+		// right child exist 
+		size_of_sub_tree += GetSizeOfSubTree(current_tree, right_child_index);
+	}
+
+	
+	// post of traverse 
 	// return size 
-	return left_child_size + right_child_size; 
+	return size_of_sub_tree; 
 }
-
-// rewrite ///////////////////////////////////////////////////////////////////////////////
 
 // O(1) 
 ItemType GetRootNodeItemOfTree(Tree current_tree) {
@@ -334,6 +350,221 @@ ItemType RemoveExternalNodeInTree(Tree current_tree, const int node_index) {
 	return get_item; 
 }
 
+// O(N) , N : node count 
+int GetDepthOfNodeInTree(Tree current_tree, const int node_index) {
+	// error handling 
+	if (current_tree == NULL) {
+		ErrorHandingFunction(DeallocatedTree);
+	}
+	if (node_index < 1 || node_index > current_tree->max_tree_len) {
+		ErrorHandingFunction(InvalidIndex);
+	}
+	if (current_tree->tree_array_address[node_index] == '#') {
+		ErrorHandingFunction(EmptyNode);
+	}
+
+	// exit condition 
+	if (node_index == 1) {
+		// root node 
+		return 0; 
+	}
+	// recursion 
+	return GetDepthOfNodeInTree(current_tree, node_index / 2) + 1; 
+}
+
+// O(N) , N : node count 
+int GetHeightOfNodeInTree(Tree current_tree, const int node_index) {
+	// error handling 
+	if (current_tree == NULL) {
+		ErrorHandingFunction(DeallocatedTree);
+	}
+	if (node_index < 1 || node_index > current_tree->max_tree_len) {
+		ErrorHandingFunction(InvalidIndex);
+	}
+	if (current_tree->tree_array_address[node_index] == '#') {
+		ErrorHandingFunction(EmptyNode);
+	}
+
+	// recursion 
+	int left_child_index = node_index * 2;
+	int right_child_index = node_index * 2 + 1;
+	bool is_external_node = true; 
+	int left_child_height = 0; 
+	if (left_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[left_child_index] != '#') {
+		// left child exist 
+		left_child_height = GetHeightOfNodeInTree(current_tree, left_child_index);
+		is_external_node = false; 
+	}
+	int right_child_height = 0; 
+	if (right_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[right_child_index] != '#') {
+		// right child exist 
+		right_child_height = GetHeightOfNodeInTree(current_tree, right_child_index);
+		is_external_node = false; 
+	}
+	
+	// exit condition 
+	if (is_external_node)
+		return 0; 
+
+	return ((left_child_height > right_child_height) ? left_child_height : right_child_height) + 1; 
+}
+
+// O(N) , N : node count 
+void PreOrderTraverseAndPrintNodeInTree(Tree current_tree, const int node_index) {
+	// error handling 
+	if (current_tree == NULL) {
+		ErrorHandingFunction(DeallocatedTree);
+	}
+	if (node_index < 1 || node_index > current_tree->max_tree_len) {
+		ErrorHandingFunction(InvalidIndex);
+	}
+	if (current_tree->tree_array_address[node_index] == '#') {
+		ErrorHandingFunction(EmptyNode);
+	}
+
+	// print first node_index 
+	printf("%d ", current_tree->tree_array_address[node_index]);
+
+	// traverse left_child and right_child (if exist) 
+	int left_child_index = node_index * 2;
+	if (left_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[left_child_index] != '#') {
+		// left child exist 
+		PreOrderTraverseAndPrintNodeInTree(current_tree, left_child_index); 
+	}
+	int right_child_index = node_index * 2 + 1;
+	if (right_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[right_child_index] != '#') {
+		// right child exist 
+		PreOrderTraverseAndPrintNodeInTree(current_tree, right_child_index);
+	}
+
+	return; 
+}
+
+// O(N) , N : node count 
+void PostOrderTraverseAndPrintNodeInTree(Tree current_tree, const int node_index) {
+	// error handling 
+	if (current_tree == NULL) {
+		ErrorHandingFunction(DeallocatedTree);
+	}
+	if (node_index < 1 || node_index > current_tree->max_tree_len) {
+		ErrorHandingFunction(InvalidIndex);
+	}
+	if (current_tree->tree_array_address[node_index] == '#') {
+		ErrorHandingFunction(EmptyNode);
+	}
+
+	// traverse first left_child and right_child (if exist) 
+	int left_child_index = node_index * 2;
+	if (left_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[left_child_index] != '#') {
+		// left child exist 
+		PostOrderTraverseAndPrintNodeInTree(current_tree, left_child_index);
+	}
+	int right_child_index = node_index * 2 + 1;
+	if (right_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[right_child_index] != '#') {
+		// right child exist 
+		PostOrderTraverseAndPrintNodeInTree(current_tree, right_child_index);
+	}
+
+	// print node_index 
+	printf("%d ", current_tree->tree_array_address[node_index]);
+
+	return;
+}
+
+// O(N) , N : node count 
+void InOrderTraverseAndPrintNodeInTree(Tree current_tree, const int node_index) {
+	// error handling 
+	if (current_tree == NULL) {
+		ErrorHandingFunction(DeallocatedTree);
+	}
+	if (node_index < 1 || node_index > current_tree->max_tree_len) {
+		ErrorHandingFunction(InvalidIndex);
+	}
+	if (current_tree->tree_array_address[node_index] == '#') {
+		ErrorHandingFunction(EmptyNode);
+	}
+
+	// traverse left_child (if exist) 
+	int left_child_index = node_index * 2;
+	if (left_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[left_child_index] != '#') {
+		// left child exist 
+		InOrderTraverseAndPrintNodeInTree(current_tree, left_child_index);
+	}
+
+	// print node_index 
+	printf("%d ", current_tree->tree_array_address[node_index]);
+	
+	// traverse right_child (if exist)
+	int right_child_index = node_index * 2 + 1;
+	if (right_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[right_child_index] != '#') {
+		// right child exist 
+		InOrderTraverseAndPrintNodeInTree(current_tree, right_child_index);
+	}
+
+	return;
+}
+
+// O(N) , N : node count 
+void LevelOrderTraverseAndPrintNodeInTree(Tree current_tree, const int node_index) {
+	// error handling 
+	if (current_tree == NULL) {
+		ErrorHandingFunction(DeallocatedTree);
+	}
+	if (node_index < 1 || node_index > current_tree->max_tree_len) {
+		ErrorHandingFunction(InvalidIndex);
+	}
+	if (current_tree->tree_array_address[node_index] == '#') {
+		ErrorHandingFunction(EmptyNode);
+	}
+
+	// level order traverse ( empty node : pass ) 
+	ItemType print_item = 0; 
+	for (int i = 1; i <= current_tree->max_tree_len; i++) {
+		print_item = current_tree->tree_array_address[i]; 
+		if (print_item != '#') {
+			printf("%d ", print_item);
+		}
+	}
+
+	return; 
+}
+
+void EulerOrderTraverseAndPrintNodeInTree(Tree current_tree, const int node_index) {
+	// error handling 
+	if (current_tree == NULL) {
+		ErrorHandingFunction(DeallocatedTree);
+	}
+	if (node_index < 1 || node_index > current_tree->max_tree_len) {
+		ErrorHandingFunction(InvalidIndex);
+	}
+	if (current_tree->tree_array_address[node_index] == '#') {
+		ErrorHandingFunction(EmptyNode);
+	}
+
+	// print node_index 
+	printf("%d ", current_tree->tree_array_address[node_index]);
+
+	// traverse left_child (if exist) 
+	int left_child_index = node_index * 2;
+	if (left_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[left_child_index] != '#') {
+		// left child exist 
+		EulerOrderTraverseAndPrintNodeInTree(current_tree, left_child_index);
+	}
+
+	// print node_index 
+	printf("%d ", current_tree->tree_array_address[node_index]);
+
+	// traverse right_child (if exist)
+	int right_child_index = node_index * 2 + 1;
+	if (right_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[right_child_index] != '#') {
+		// right child exist 
+		EulerOrderTraverseAndPrintNodeInTree(current_tree, right_child_index);
+	}
+
+	// print node_index 
+	printf("%d ", current_tree->tree_array_address[node_index]);
+}
+
 // O(1) 
 void RemoveTree(Tree* removing_tree) {
 	// error handling 
@@ -369,4 +600,3 @@ static void ErrorHandingFunction(enum ERROR_CODE code) {
 
 	exit(0);
 }
-
