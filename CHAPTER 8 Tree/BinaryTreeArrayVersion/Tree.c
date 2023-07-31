@@ -565,6 +565,83 @@ void EulerOrderTraverseAndPrintNodeInTree(Tree current_tree, const int node_inde
 	printf("%d ", current_tree->tree_array_address[node_index]);
 }
 
+////////////////////////////////////////////////////////      ApplicationProblem       //////////////////////////////////////////////////////////////
+
+// 1 . Successor 
+
+int PreOrderSuccessor(Tree current_tree, const int node_index) {
+	// error handling 
+	if (current_tree == NULL) {
+		ErrorHandingFunction(DeallocatedTree);
+	}
+	if (node_index < 1 || node_index > current_tree->max_tree_len) {
+		ErrorHandingFunction(InvalidIndex);
+	}
+	if (current_tree->tree_array_address[node_index] == '#') {
+		ErrorHandingFunction(EmptyRootNode);
+	}
+
+	// algorithm ////////////////////////////////////////////
+
+	int left_child_index = node_index * 2;
+	if (left_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[left_child_index] != '#') {
+		// if left_child exist return left_child node_index
+		return left_child_index; 
+	}
+
+	int right_child_index = node_index * 2 + 1;
+	if (right_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[right_child_index] != '#') {
+		// if right_child exist return right_child node_index 
+		return right_child_index; 
+	}
+
+	// external node check complete  -----------------------------
+
+	if (node_index == 1) {
+		// if external node & root_node 
+		printf("LAST OF NODE INDEX !! HAVE NOT SUCCESSOR!!!\n\n");
+		return -1;
+	}
+
+	// 1st UP  
+	int parent_node_index = node_index / 2;
+	int possible_right_child_node_index = parent_node_index * 2 + 1; 
+	int current_node_index = node_index;
+	
+
+	while (!(( possible_right_child_node_index <= current_tree->max_tree_len && current_tree->tree_array_address[possible_right_child_node_index] != '#') && 
+		     ( current_node_index != possible_right_child_node_index))){
+
+		// up node while not (possible_right_child_node exist and not current_node)
+
+		if (parent_node_index == 1) {
+			// parent_node ==> root_node ----> search terminate 
+			printf("LAST OF NODE INDEX !! HAVE NOT SUCCESSOR!!!\n\n");
+			return -1;
+		}
+
+		// UP 
+		current_node_index = parent_node_index; 
+		parent_node_index /= 2; 
+		int possible_right_child_node_index = parent_node_index * 2 + 1;
+
+	}
+
+	return possible_right_child_node_index;
+
+}
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // O(1) 
 void RemoveTree(Tree* removing_tree) {
 	// error handling 
