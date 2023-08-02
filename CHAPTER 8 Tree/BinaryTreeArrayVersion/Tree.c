@@ -437,7 +437,7 @@ void PreOrderTraverseAndPrintNodeInTree(Tree current_tree, const int node_index)
 		PreOrderTraverseAndPrintNodeInTree(current_tree, right_child_index);
 	}
 
-	return; 
+	return;
 }
 
 // O(N) , N : node count 
@@ -563,6 +563,8 @@ void EulerOrderTraverseAndPrintNodeInTree(Tree current_tree, const int node_inde
 
 	// print node_index 
 	printf("%d ", current_tree->tree_array_address[node_index]);
+
+	return;
 }
 
 ////////////////////////////////////////////////////////      ApplicationProblem       //////////////////////////////////////////////////////////////
@@ -578,7 +580,7 @@ int PreOrderSuccessor(Tree current_tree, const int node_index) {
 		ErrorHandingFunction(InvalidIndex);
 	}
 	if (current_tree->tree_array_address[node_index] == '#') {
-		ErrorHandingFunction(EmptyRootNode);
+		ErrorHandingFunction(EmptyNode);
 	}
 
 	// algorithm ////////////////////////////////////////////
@@ -623,7 +625,7 @@ int PreOrderSuccessor(Tree current_tree, const int node_index) {
 		// UP 
 		current_node_index = parent_node_index; 
 		parent_node_index /= 2; 
-		int possible_right_child_node_index = parent_node_index * 2 + 1;
+		possible_right_child_node_index = parent_node_index * 2 + 1;
 
 	}
 
@@ -631,9 +633,136 @@ int PreOrderSuccessor(Tree current_tree, const int node_index) {
 
 }
 
+int InOrderSuccessor(Tree current_tree, const int node_index) {
+	// error handling 
+	if (current_tree == NULL) {
+		ErrorHandingFunction(DeallocatedTree);
+	}
+	if (node_index < 1 || node_index > current_tree->max_tree_len) {
+		ErrorHandingFunction(InvalidIndex);
+	}
+	if (current_tree->tree_array_address[node_index] == '#') {
+		ErrorHandingFunction(EmptyNode);
+	}
+
+	// algorithm ////////////////////////////////////////////
+
+	int right_child_index = node_index * 2 + 1;
+	if (right_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[right_child_index] != '#') {
+		// if right_child exist go left while exist 
+		int current_node_index = right_child_index; 
+		int next_node_index = right_child_index * 2; 
+
+		while (next_node_index <= current_tree->max_tree_len && current_tree->tree_array_address[next_node_index] != '#') {
+			// go left 
+			current_node_index = next_node_index; 
+			next_node_index *= 2; 
+		}
+
+		return current_node_index; 
+		
+	}
+
+	// rigt_child is not exist -----------------------------
+
+	if (node_index == 1) {
+		// if right_child is not exist & root_node 
+		printf("LAST OF NODE INDEX !! HAVE NOT SUCCESSOR!!!\n\n");
+		return -1;
+	}
+
+	// 1st UP  
+	int parent_node_index = node_index / 2;
+	int current_node_index = node_index;
+
+	while(!(current_node_index == (parent_node_index * 2))) {
+		// up node while not ((parent <--> current) == ( parent <--> left_child ))
+
+		if (parent_node_index == 1) {
+			// parent_node ==> root_node ----> search terminate 
+			printf("LAST OF NODE INDEX !! HAVE NOT SUCCESSOR!!!\n\n");
+			return -1;
+		}
+
+		// UP 
+		current_node_index = parent_node_index;
+		parent_node_index /= 2;
+		
+	}
+
+	return parent_node_index; 
+
+}
+
+int PostOrderSuccessor(Tree current_tree, const int node_index) {
+	// error handling 
+	if (current_tree == NULL) {
+		ErrorHandingFunction(DeallocatedTree);
+	}
+	if (node_index < 1 || node_index > current_tree->max_tree_len) {
+		ErrorHandingFunction(InvalidIndex);
+	}
+	if (current_tree->tree_array_address[node_index] == '#') {
+		ErrorHandingFunction(EmptyNode);
+	}
+
+	// algorithm ////////////////////////////////////////////
+
+	
+	
+	if (node_index == 1) {
+		// if root_node
+		printf("LAST OF NODE INDEX !! HAVE NOT SUCCESSOR!!!\n\n");
+		return -1;
+	}
+	
+	int parent_node_index = node_index / 2; 
+
+	if (node_index % 2 != 0) {
+		// parent - right_child relation 
+		return parent_node_index; 
+	}
+	else{
+		// parent - left_child relation 
+
+		if (parent_node_index * 2 + 1 <= current_tree->max_tree_len && current_tree->tree_array_address[parent_node_index * 2 + 1] != '#') {
+
+			// if right_child exist go down while internal ( left first down )   
+			
+			int current_node_index = parent_node_index * 2 + 1;
+			int left_child_index = current_node_index * 2;
+			int right_child_index = current_node_index * 2 + 1;
 
 
+			while (1) {
+				
+			
+				if (left_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[left_child_index] != '#') {
+					// left child exist 
+					current_node_index = left_child_index; 
+					left_child_index = current_node_index * 2; 
+					right_child_index = current_node_index * 2 + 1; 
+				}
+				else if (right_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[right_child_index] != '#') {
+					// right child exist 
+					current_node_index = right_child_index; 
+					left_child_index = current_node_index * 2;
+					right_child_index = current_node_index * 2 + 1;
+				}
+				else {
+					// external node 
+					return current_node_index; 
+				}
 
+			}
+
+		}
+		else {
+			// else right_child not exist
+			return parent_node_index; 
+		}
+	}
+}
 
 
 

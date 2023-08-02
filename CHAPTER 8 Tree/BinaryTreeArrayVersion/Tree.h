@@ -37,4 +37,15 @@ void InOrderTraverseAndPrintNodeInTree(Tree current_tree, const int node_index);
 void LevelOrderTraverseAndPrintNodeInTree(Tree current_tree, const int node_index);
 void EulerOrderTraverseAndPrintNodeInTree(Tree current_tree, const int node_index);
 
+
+
+
+////////////////////////////////////////////////////////      ApplicationProblem       //////////////////////////////////////////////////////////////
+
+// 1. Successor 
+
+int PreOrderSuccessor(Tree current_tree, const int node_index); 
+int InOrderSuccessor(Tree current_tree, const int node_index); 
+int PostOrderSuccessor(Tree current_tree, const int node_index); 
+
 #endif
