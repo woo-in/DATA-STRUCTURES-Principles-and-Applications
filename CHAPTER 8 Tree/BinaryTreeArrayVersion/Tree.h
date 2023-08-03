@@ -46,6 +46,10 @@ void EulerOrderTraverseAndPrintNodeInTree(Tree current_tree, const int node_inde
 
 int PreOrderSuccessor(Tree current_tree, const int node_index); 
 int InOrderSuccessor(Tree current_tree, const int node_index); 
-int PostOrderSuccessor(Tree current_tree, const int node_index); 
+int PostOrderSuccessor(Tree current_tree, const int node_index);
+
+// 2 . Roman
+
+int RomanSize(Tree current_tree, const int node_index); 
 
 #endif

@@ -764,7 +764,67 @@ int PostOrderSuccessor(Tree current_tree, const int node_index) {
 	}
 }
 
+// 2 . Roman
 
+// O(N) 
+int RomanSize(Tree current_tree, const int node_index) {
+	// error handling 
+	if (current_tree == NULL) {
+		ErrorHandingFunction(DeallocatedTree);
+	}
+	if (node_index < 1 || node_index > current_tree->max_tree_len) {
+		ErrorHandingFunction(InvalidIndex);
+	}
+	if (current_tree->tree_array_address[node_index] == '#') {
+		ErrorHandingFunction(EmptyNode);
+	}
+
+	// algorithm 
+
+	int left_child_index = node_index * 2; 
+	int right_child_index = node_index * 2 + 1; 
+	int left_size = -1;  // -1 --> left not exist 
+	int right_size = -1;  // -1 --> right not exist 
+
+	if (left_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[left_child_index] != '#') {
+		// left exist 
+		left_size = RomanSize(current_tree, left_child_index); 
+	}
+
+	if (right_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[right_child_index] != '#') {
+		// right exist 
+		right_size = RomanSize(current_tree, right_child_index);
+	}
+
+
+	if (left_child_index == 0 || right_child_index == 0) {
+		// have (not roman node)
+		return 0; 
+	}
+	else {
+		if (left_size == -1) {
+			left_size = 0; 
+		}
+		if (right_size == -1) {
+			right_size = 0; 
+		}
+
+		int gap = left_size >= right_size ? (left_size - right_size) : (right_size - left_size);
+		if (gap <= 5) {
+			// roman node 
+			return left_size + right_size + 1;
+		}
+		else {
+			// not roman node 
+			return 0; 
+		}
+	}
+	
+	
+
+
+
+}
 
 
 

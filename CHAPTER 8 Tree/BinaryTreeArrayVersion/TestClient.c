@@ -8,7 +8,7 @@ int main() {
 
 
 	SetLeftChildNodeInTree(t, 1, 200);
-	SetRightChildNodeInTree(t, 1, 300);
+	
 
 	SetLeftChildNodeInTree(t, 2, 400);
 	SetRightChildNodeInTree(t, 2, 500);
@@ -18,20 +18,17 @@ int main() {
 
 	SetRightChildNodeInTree(t, 5, 600);
 
-	SetRightChildNodeInTree(t, 3, 700);
+	
 
-	SetLeftChildNodeInTree(t, 7, 800);
+	
 
-	PostOrderTraverseAndPrintNodeInTree(t, 1);
-	printf("\n");
 
-	int node = 0; 
-	while (1) {
 
-		scanf("%d", &node);
-		printf("%d\n", PostOrderSuccessor(t, node));
 
-	}
+
+
+
+	printf("%d", RomanSize(t, 3));
 
 	RemoveTree(&t);
 	return 0;
