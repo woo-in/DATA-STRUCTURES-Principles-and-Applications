@@ -52,6 +52,4 @@ int PostOrderSuccessor(Tree current_tree, const int node_index);
 
 int RomanSize(Tree current_tree, const int node_index); 
 
-
-
 #endif
