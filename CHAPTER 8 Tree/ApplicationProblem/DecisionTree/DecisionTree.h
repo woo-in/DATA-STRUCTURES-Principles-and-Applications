@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-#define MAX_LENGTH 1000 
+#define MAX_LENGTH 100 // REAL MAX LENGHTH IS (MAX_LENGTH - 2)
 
 typedef char ItemType[MAX_LENGTH]; 
 

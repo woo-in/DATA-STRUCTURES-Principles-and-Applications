@@ -62,15 +62,15 @@ static bool IsInternalNodeInTree(Tree current_tree, const int node_index) {
 	if (node_index < 1 || node_index > current_tree->max_tree_len) {
 		ErrorHandingFunction(InvalidIndex);
 	}
-	if (current_tree->tree_array_address[node_index] == '#') {
+	if (current_tree->tree_array_address[node_index][0] == '#') {
 		ErrorHandingFunction(EmptyNode);
 	}
 
 	// check having at least one child 
 	int left_child_index = node_index * 2;
 	int right_child_index = node_index * 2 + 1;
-	return (left_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[left_child_index] != '#') ||
-		(right_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[right_child_index] != '#');
+	return (left_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[left_child_index][0] != '#') ||
+		(right_child_index <= current_tree->max_tree_len && current_tree->tree_array_address[right_child_index][0] != '#');
 }
 
 
@@ -229,6 +229,7 @@ void RunDecisionTree(Tree decision_tree) {
 	int client_answer = 0; 
 	
 	while (IsInternalNodeInTree(decision_tree, current_node_index)) {
+
 		printf("Q : %s\n", decision_tree->tree_array_address[current_node_index]);
 		printf("<1> YES\n");
 		printf("<2> NO\n");
