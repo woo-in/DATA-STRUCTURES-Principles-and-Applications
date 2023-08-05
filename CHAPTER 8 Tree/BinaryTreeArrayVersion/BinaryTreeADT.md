@@ -1,7 +1,8 @@
+# Data :     
+
+Hierarchical data    
 
 # Methods :       
-
-
          
 **Tree InitializeTree(const int max_tree_len, const int root_node_item)**        
 Return new tree.        
