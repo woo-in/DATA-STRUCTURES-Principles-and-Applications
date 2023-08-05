@@ -104,6 +104,8 @@ static void MakeInternalNode(Tree current_tree, const int node_index) {
 		ErrorHandingFunction(ExceedMaximumLetterCount); 
 	}
 
+	// record 
+
 	current_tree->tree_array_address[node_index][letter_count] = '\0'; 
 	
 	// new Question or Answer according to reply 
@@ -112,7 +114,7 @@ static void MakeInternalNode(Tree current_tree, const int node_index) {
 	int yes_node_index = node_index * 2; 
 	int no_node_index = node_index * 2 + 1; 
 
-	// if Question YES , make new Question or Answer ? 
+	// if reply YES , check make new Question or Answer 
 	
 	printf("If reply YES in Question : %s\n", current_tree->tree_array_address[node_index]);
 	printf("<1> Make new question\n");
@@ -133,7 +135,7 @@ static void MakeInternalNode(Tree current_tree, const int node_index) {
 		ErrorHandingFunction(InputError); 
 	}
 
-	// if Question NO , make new Question or Answer ? 
+	// if reply NO , check make new Question or Answer ? 
 
 	printf("If reply NO in Question : %s\n", current_tree->tree_array_address[node_index]);
 	printf("<1> Make new question\n");
@@ -171,7 +173,7 @@ static void MakeExternalNode(Tree current_tree, const int node_index) {
 	}
 
 
-	// Input Answer and reply 
+	// Input Answer
 
 	int letter_count = 0;
 	char input_character = 0;
@@ -190,6 +192,8 @@ static void MakeExternalNode(Tree current_tree, const int node_index) {
 	}
 
 	current_tree->tree_array_address[node_index][letter_count] = '\0';
+
+	return; 
 
 }
 
@@ -216,6 +220,8 @@ void RemoveDecisionTree(Tree* removing_tree) {
 	Tree deallocating_address = (*removing_tree);
 	(*removing_tree) = NULL;
 	free(deallocating_address);
+
+	return; 
 }
 
 void RunDecisionTree(Tree decision_tree) {
@@ -249,9 +255,10 @@ void RunDecisionTree(Tree decision_tree) {
 		}
 	}
 
-	// print result 
+	// reach result ! print result 
 	printf("Result : %s\n", decision_tree->tree_array_address[current_node_index]); 
-	
+
+	return; 
 }
 
 // O(1) 
